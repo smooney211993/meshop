@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Header from './Components/Layouts/Header';
 import Footer from './Components/Layouts/Footer';
+import Homescreens from './Components/Screens/Homescreens';
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
       <Container></Container>
       <main>
         <Container>
-          <h1>Hello</h1>
+          <Homescreens />
         </Container>
       </main>
       <Footer />
