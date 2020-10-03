@@ -5,6 +5,7 @@ import {
 } from '../actions/types';
 const initialState = {
   products: [],
+  product: null,
   loading: null,
   error: {},
 };

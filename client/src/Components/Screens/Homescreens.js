@@ -4,13 +4,16 @@ import { Row, Col } from 'react-bootstrap';
 import Product from '../Product/Product';
 
 // redux
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../actions/productActions';
 
-const Homescreens = ({ getProducts, products: { products } }) => {
+const Homescreens = () => {
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productReducer);
+  const { products } = productList;
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    dispatch(getProducts());
+  }, [dispatch]);
   return (
     <>
       <h1>Latest Products</h1>
@@ -27,4 +30,4 @@ const Homescreens = ({ getProducts, products: { products } }) => {
 const mappedStateToProps = (state) => ({
   products: state.productReducer,
 });
-export default connect(mappedStateToProps, { getProducts })(Homescreens);
+export default Homescreens;
