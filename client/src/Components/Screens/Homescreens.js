@@ -3,14 +3,13 @@ import { Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import Product from '../Product/Product';
 
-const Homescreens = () => {
-  const [products, setProduct] = useState([]);
+// redux
+import { connect } from 'react-redux';
+import { getProducts } from '../../actions/productActions';
+
+const Homescreens = ({ getProducts, products: { products } }) => {
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('/api/products');
-      setProduct(data);
-    };
-    fetchProducts();
+    getProducts();
   }, []);
   return (
     <>
@@ -25,5 +24,7 @@ const Homescreens = () => {
     </>
   );
 };
-
-export default Homescreens;
+const mappedStateToProps = (state) => ({
+  products: state.productReducer,
+});
+export default connect(mappedStateToProps, { getProducts })(Homescreens);
