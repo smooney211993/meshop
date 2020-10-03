@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../../actions/productActions';
 const ProductScreen = ({ match }) => {
   const dispatch = useDispatch();
-  const productItem = useSelector((state) => state.productItemReducer);
+  const productItem = useSelector((state) => state.productItem);
   const { product } = productItem;
   useEffect(() => {
     dispatch(getProductById(match.params.id));

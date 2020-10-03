@@ -9,7 +9,7 @@ import { getProducts } from '../../actions/productActions';
 
 const Homescreens = () => {
   const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productReducer);
+  const productList = useSelector((state) => state.productList);
   const { products } = productList;
   useEffect(() => {
     dispatch(getProducts());
