@@ -5,6 +5,7 @@ import Header from './Components/Layouts/Header';
 import Footer from './Components/Layouts/Footer';
 import Homescreens from './Components/Screens/Homescreens';
 import ProductScreen from './Components/Screens/ProductScreen';
+// redux
 
 const App = () => {
   return (

@@ -10,6 +10,7 @@ dotenv.config();
 connectDB();
 
 app.use(express.json());
+
 app.use('/api/products', products);
 
 app.listen(PORT, () => {
