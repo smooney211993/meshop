@@ -15,7 +15,7 @@ export default function (state = initialState, action) {
     case PRODUCT_LIST_REQUEST:
       return { ...state, loading: true };
     case PRODUCT_LIST_SUCCESS:
-      return { ...state, loading: false, products: payload };
+      return { ...state, loading: false, products: payload, error: null };
     case PRODUCT_LIST_FAIL:
       return { ...state, loading: false, error: payload };
     default:
