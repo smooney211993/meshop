@@ -6,9 +6,11 @@ import {
   PRODUCT_ITEM_SUCCESS,
   PRODUCT_ITEM_REQUEST,
   PRODUCT_ITEM_FAIL,
+  CLEAR_PRODUCT_ITEM,
 } from './types';
 
 export const getProducts = () => async (dispatch) => {
+  dispatch({ type: CLEAR_PRODUCT_ITEM });
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get('/api/products');
