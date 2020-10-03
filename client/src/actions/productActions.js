@@ -23,3 +23,5 @@ export const getProducts = () => async (dispatch) => {
     });
   }
 };
+
+export const getProductById = (id) => async (dispatch) => {};

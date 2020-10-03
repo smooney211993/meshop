@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+
 import Product from '../Product/Product';
 
 // redux
@@ -10,7 +10,7 @@ import { getProducts } from '../../actions/productActions';
 const Homescreens = ({ getProducts, products: { products } }) => {
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
   return (
     <>
       <h1>Latest Products</h1>
