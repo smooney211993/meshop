@@ -8,7 +8,7 @@ import {
 const initialState = {
   product: { reviews: [] },
   loading: null,
-  errors: {},
+  errors: null,
 };
 
 export default function (state = initialState, action) {

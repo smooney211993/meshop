@@ -6,7 +6,7 @@ import {
 const initialState = {
   products: [],
   loading: null,
-  error: {},
+  error: null,
 };
 
 export default function (state = initialState, action) {
