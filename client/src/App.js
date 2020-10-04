@@ -5,6 +5,7 @@ import Header from './Components/Layouts/Header';
 import Footer from './Components/Layouts/Footer';
 import Homescreens from './Components/Screens/Homescreens';
 import ProductScreen from './Components/Screens/ProductScreen';
+import CartScreen from './Components/Screens/CartScreen';
 // redux
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Container>
           <Route exact path='/' component={Homescreens} />
           <Route exact path='/product/:id' component={ProductScreen} />
+          <Route exact path='/card/:id?' component={CartScreen} />
         </Container>
       </main>
       <Footer />

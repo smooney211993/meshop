@@ -14,14 +14,17 @@ import Spinner from '../Layouts/Spinner';
 import Message from '../Layouts/Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../../actions/productActions';
-const ProductScreen = ({ match }) => {
-  const [qty, setQty] = useState(0);
+const ProductScreen = ({ match, history }) => {
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productItem = useSelector((state) => state.productItem);
   const { product, loading, error } = productItem;
   useEffect(() => {
     dispatch(getProductById(match.params.id));
   }, [dispatch, match]);
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
   return (
     <>
       <div>{product.name}</div>
@@ -95,6 +98,7 @@ const ProductScreen = ({ match }) => {
                   )}
                   <ListGroup.Item>
                     <Button
+                      onClick={addToCartHandler}
                       className='btn-block'
                       disabled={product.countInStock === 0}>
                       Add To Cart
