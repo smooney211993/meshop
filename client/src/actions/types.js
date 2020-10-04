@@ -7,6 +7,6 @@ export const PRODUCT_ITEM_FAIL = 'PRODUCT_ITEM_FAIL';
 export const CLEAR_PRODUCT_ITEM = 'CLEAR_PRODUCT_ITEM';
 
 // Cart Constant Types
-
+export const CART_LOADING = 'CART_LOADING';
 export const CART_ADD_ITEM = 'CARD_ADD_ITEM';
-export const CARD_REMOVE_ITEM = 'CARD_REMOVE_ITEM';
+export const CART_REMOVE_ITEM = 'CARD_REMOVE_ITEM';

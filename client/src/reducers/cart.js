@@ -1,4 +1,8 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../actions/types';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_LOADING,
+} from '../actions/types';
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
@@ -13,6 +17,8 @@ const initialState = {
 export default function (state = initialState, action) {
   const { payload, type } = action;
   switch (type) {
+    case CART_LOADING:
+      return { ...state, loading: true };
     case CART_ADD_ITEM:
       const existItem = state.cartItems.find(
         (item) => item.product === payload.product
@@ -20,10 +26,6 @@ export default function (state = initialState, action) {
       if (existItem) {
         return {
           ...state,
-          loading: false,
-          cartItems: state.cartItems.map((x) =>
-            x.product === existItem.product ? payload : x
-          ),
         };
       } else {
         return {
@@ -32,6 +34,12 @@ export default function (state = initialState, action) {
           cartItems: [...state.cartItems, payload],
         };
       }
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
+        loading: false,
+        cartItems: state.cartItems.filter((x) => x.product !== payload),
+      };
     default:
       return state;
   }
