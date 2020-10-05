@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../actions/cartActions';
+import { addToCart, removeItemFromCart } from '../../actions/cartActions';
 import {
   Row,
   Col,
@@ -12,6 +12,7 @@ import {
   Card,
 } from 'react-bootstrap';
 import Message from '../Layouts/Message';
+import Spinner from '../Layouts/Spinner';
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
@@ -19,18 +20,23 @@ const CartScreen = ({ match, location, history }) => {
   console.log(qty);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
+  const { cartItems, loading } = cart;
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
   }, [dispatch, productId, qty]);
+  const removeItemHandler = (id) => {
+    dispatch(removeItemFromCart(id));
+  };
   return (
     <Row>
       <Col md={8}>
         <h1>Shopping Cart</h1>
-        {cartItems.length === 0 ? (
-          <Message>Your cart is empty</Message>
+        {loading ? (
+          <Spinner />
+        ) : cartItems.length === 0 ? (
+          <Message>Your Cart Is Empty</Message>
         ) : (
           <ListGroup variant='flush'>
             {cartItems.map((item) => (
@@ -60,6 +66,14 @@ const CartScreen = ({ match, location, history }) => {
                         </option>
                       ))}
                     </Form.Control>
+                  </Col>
+                  <Col md={2}>
+                    <Button
+                      type='button'
+                      variant='light'
+                      onClick={() => removeItemHandler(item.product)}>
+                      <i className='fas fa-trash'></i>
+                    </Button>
                   </Col>
                 </Row>
               </ListGroup.Item>
