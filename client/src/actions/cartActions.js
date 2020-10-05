@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from './types';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_LOADING } from './types';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
+  dispatch({ type: CART_LOADING });
   try {
     const { data } = await axios.get(`/api/products/${id}`);
     dispatch({
