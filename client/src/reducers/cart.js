@@ -26,6 +26,9 @@ export default function (state = initialState, action) {
       if (existItem) {
         return {
           ...state,
+          cartItems: state.cartItems.map((x) =>
+            x.product === existItem.product ? payload : x
+          ),
         };
       } else {
         return {

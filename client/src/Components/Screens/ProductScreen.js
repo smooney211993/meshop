@@ -14,6 +14,7 @@ import Spinner from '../Layouts/Spinner';
 import Message from '../Layouts/Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../../actions/productActions';
+
 const ProductScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
