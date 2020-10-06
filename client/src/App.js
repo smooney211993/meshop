@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './Components/Layouts/Header';
@@ -6,9 +6,15 @@ import Footer from './Components/Layouts/Footer';
 import Homescreens from './Components/Screens/Homescreens';
 import ProductScreen from './Components/Screens/ProductScreen';
 import CartScreen from './Components/Screens/CartScreen';
+import { useDispatch } from 'react-redux';
+import { loadUser } from './actions/userActions';
 // redux
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+  }, []);
   return (
     <Router>
       <Header />
