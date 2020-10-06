@@ -33,14 +33,37 @@ const registerUser = async (req, res, next) => {
     );
   } catch (error) {
     console.log(error.message);
-    res.status(500).json('server error');
+    res.status(500).json('Server Error');
   }
 };
 
 const authUser = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-  } catch (error) {}
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: 'Invalid Credentials' });
+    }
+    if (user && (await user.matchPassword(password))) {
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+      jwt.sign(
+        payload,
+        process.env.JWT_SECRET,
+        { expiresIn: 36000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json('Server Error');
+  }
 };
 module.exports = {
   registerUser,
