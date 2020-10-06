@@ -50,6 +50,7 @@ const authUser = async (req, res, next) => {
           id: user.id,
         },
       };
+      console.log(user.id);
       jwt.sign(
         payload,
         process.env.JWT_SECRET,
@@ -70,7 +71,8 @@ const authUser = async (req, res, next) => {
 
 const getUserProfile = async (req, res, next) => {
   try {
-    const user = User.findById(req.user.id).select('-password');
+    console.log(req.user.id);
+    const user = await User.findById(req.user.id).select('-password');
     res.json(user);
   } catch (error) {
     console.log(error.message);

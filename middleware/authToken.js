@@ -2,12 +2,13 @@ const jwt = require('jsonwebtoken');
 
 const authToken = (req, res, next) => {
   let token;
+
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
     try {
-      // if token is valid, decode and then will set req.user to the user that is in the decoded token.
+      token = token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = decoded.user;
       next();
