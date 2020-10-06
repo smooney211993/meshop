@@ -6,6 +6,7 @@ import Footer from './Components/Layouts/Footer';
 import Homescreens from './Components/Screens/Homescreens';
 import ProductScreen from './Components/Screens/ProductScreen';
 import CartScreen from './Components/Screens/CartScreen';
+import LoginScreen from './Components/Screens/LoginScreen';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions';
 // redux
@@ -21,6 +22,7 @@ const App = () => {
       <Container></Container>
       <main>
         <Container>
+          <Route path='/login' component={LoginScreen} />
           <Route exact path='/' component={Homescreens} />
           <Route exact path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
