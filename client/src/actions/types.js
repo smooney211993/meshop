@@ -10,3 +10,11 @@ export const CLEAR_PRODUCT_ITEM = 'CLEAR_PRODUCT_ITEM';
 export const CART_LOADING = 'CART_LOADING';
 export const CART_ADD_ITEM = 'CARD_ADD_ITEM';
 export const CART_REMOVE_ITEM = 'CARD_REMOVE_ITEM';
+
+// User Constant Types
+
+export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const USER_LOADED = 'USER_LOADED';
+export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
+export const USER_LOG_OUT = 'USER_LOG_OUT';
