@@ -67,7 +67,18 @@ const authUser = async (req, res, next) => {
     res.status(500).json('Server Error');
   }
 };
+
+const getUserProfile = async (req, res, next) => {
+  try {
+    const user = User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json('Server Error');
+  }
+};
 module.exports = {
   registerUser,
   authUser,
+  getUserProfile,
 };

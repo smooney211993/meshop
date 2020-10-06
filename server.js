@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const products = require('./routes/products');
 const user = require('./routes/user');
+const auth = require('./routes/auth');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/products', products);
 app.use('/api/users', user);
+app.use('/api/auth', auth);
 
 app.listen(PORT, () => {
   console.log(
