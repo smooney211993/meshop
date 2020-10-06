@@ -59,6 +59,8 @@ const authUser = async (req, res, next) => {
           res.json({ token });
         }
       );
+    } else {
+      return res.status(400).json({ msg: 'Invalid Credentials' });
     }
   } catch (error) {
     console.log(error.message);
@@ -67,4 +69,5 @@ const authUser = async (req, res, next) => {
 };
 module.exports = {
   registerUser,
+  authUser,
 };
