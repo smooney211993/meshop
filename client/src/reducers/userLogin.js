@@ -4,6 +4,7 @@ import {
   USER_LOGIN_FAIL,
   USER_LOG_OUT,
   USER_LOADED,
+  USER_LOADED_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -33,6 +34,7 @@ export default function (state = initialState, action) {
       };
     case USER_LOGIN_FAIL:
       return { ...state, loading: false, error: payload };
+    case USER_LOADED_FAIL:
     case USER_LOG_OUT:
       return { userInfo: null, loading: null, error: null, token: null };
     default:

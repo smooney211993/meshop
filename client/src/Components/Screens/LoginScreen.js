@@ -11,7 +11,7 @@ const LoginScreen = ({ location, history }) => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { isAuthenticated } = userLogin;
+  const { isAuthenticated, loading, error } = userLogin;
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const submitHandler = (e) => {
     e.preventDefault();
@@ -25,6 +25,7 @@ const LoginScreen = ({ location, history }) => {
   return (
     <FormContainer>
       <h1>Sign In</h1>
+      {error && <Message variant='danger'>{error.msg}</Message>}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='email'>
           <Form.Label>Email Address</Form.Label>

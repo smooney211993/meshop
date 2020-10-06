@@ -4,6 +4,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOADED,
   USER_LOGIN_REQUEST,
+  USER_LOADED_FAIL,
 } from './types';
 import axios from 'axios';
 export const loadUser = () => async (dispatch) => {
@@ -15,8 +16,7 @@ export const loadUser = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: USER_LOGIN_FAIL,
-      payload: { msg: error.response.statusText, err: error.response.status },
+      type: USER_LOADED_FAIL,
     });
   }
 };
