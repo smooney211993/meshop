@@ -50,7 +50,7 @@ const authUser = async (req, res, next) => {
           id: user.id,
         },
       };
-      console.log(user.id);
+
       jwt.sign(
         payload,
         process.env.JWT_SECRET,
