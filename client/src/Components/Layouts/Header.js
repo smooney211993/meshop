@@ -28,8 +28,8 @@ const Header = () => {
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
-              {isAuthenticated ? (
-                <NavDropdown title={userInfo && userInfo.name} id='username'>
+              {isAuthenticated && userInfo ? (
+                <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
