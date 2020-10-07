@@ -50,3 +50,7 @@ export const login = (email, password) => async (dispatch) => {
     }
   }
 };
+
+export const logOut = () => (dispatch) => {
+  dispatch({ type: USER_LOG_OUT });
+};
