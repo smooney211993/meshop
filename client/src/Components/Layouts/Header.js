@@ -4,11 +4,10 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../actions/userActions';
 
-import { Link } from 'react-router-dom';
 const Header = () => {
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, isAuthenticated } = userLogin;
+  const userLoginRegister = useSelector((state) => state.userLoginRegister);
+  const { userInfo, isAuthenticated } = userLoginRegister;
   const logOutHandler = () => {
     dispatch(logOut());
   };

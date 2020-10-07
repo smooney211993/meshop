@@ -10,9 +10,9 @@ const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLoginRegister = useSelector((state) => state.userLoginRegister);
   const alert = useSelector((state) => state.alert);
-  const { isAuthenticated, loading } = userLogin;
+  const { isAuthenticated, loading } = userLoginRegister;
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const submitHandler = (e) => {
     e.preventDefault();
