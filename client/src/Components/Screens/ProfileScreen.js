@@ -4,7 +4,7 @@ import { Form, Button, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
-import { register, loadUser, updateUser } from '../../actions/userActions';
+import { loadUser, updateUser } from '../../actions/userActions';
 import { setAlert } from '../../actions/alertActions';
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -14,7 +14,7 @@ const ProfileScreen = ({ location, history }) => {
   const dispatch = useDispatch();
   const userLoginRegister = useSelector((state) => state.userLoginRegister);
   const alert = useSelector((state) => state.alert);
-  const { userInfo, isAuthenticated, loading } = userLoginRegister;
+  const { userInfo, loading } = userLoginRegister;
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -22,21 +22,18 @@ const ProfileScreen = ({ location, history }) => {
       dispatch(setAlert('Passwords Do Not Match', 'danger'));
     } else {
       dispatch(updateUser(name, email, password));
+      dispatch(setAlert('Profile Succesfully Updated', 'success'));
     }
   };
   useEffect(() => {
-    if (!isAuthenticated) {
-      history.push('/login');
-    } else {
-      if (!userInfo.name) {
-        dispatch(loadUser());
-      } else {
-        setName(userInfo.name);
-        setEmail(userInfo.email);
-        dispatch(setAlert('Profile Succesfully Updated', 'success'));
-      }
+    if (!userInfo) {
+      dispatch(loadUser());
     }
-  }, [history, isAuthenticated, dispatch]);
+    if (userInfo) {
+      setName(userInfo.name);
+      setEmail(userInfo.email);
+    }
+  }, [dispatch, userInfo]);
   return (
     <Row>
       <Col md={3}>

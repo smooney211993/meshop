@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './Components/Layouts/Header';
 import Footer from './Components/Layouts/Footer';
 import Homescreens from './Components/Screens/Homescreens';
@@ -11,6 +11,7 @@ import registerScreen from './Components/Screens/RegisterScreen';
 import ProfileScreen from './Components/Screens/ProfileScreen';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions';
+import PrivateRoute from './Components/Route/PrivateRoute';
 // redux
 
 const App = () => {
@@ -21,15 +22,16 @@ const App = () => {
   return (
     <Router>
       <Header />
-      <Container></Container>
       <main>
         <Container>
-          <Route path='/login' component={LoginScreen} />
-          <Route exact path='/' component={Homescreens} />
-          <Route exact path='/product/:id' component={ProductScreen} />
-          <Route path='/cart/:id?' component={CartScreen} />
-          <Route path='/register' component={registerScreen} />
-          <Route path='/profile' component={ProfileScreen} />
+          <Switch>
+            <Route path='/login' component={LoginScreen} />
+            <Route exact path='/' component={Homescreens} />
+            <Route exact path='/product/:id' component={ProductScreen} />
+            <Route path='/cart/:id?' component={CartScreen} />
+            <Route path='/register' component={registerScreen} />
+            <PrivateRoute exact path='/profile' component={ProfileScreen} />
+          </Switch>
         </Container>
       </main>
       <Footer />
