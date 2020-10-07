@@ -7,6 +7,7 @@ import {
   USER_LOADED_FAIL,
 } from './types';
 import axios from 'axios';
+import { setAlert } from './alertActions';
 export const loadUser = () => async (dispatch) => {
   try {
     const { data } = await axios.get('/api/auth');
@@ -36,9 +37,13 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     dispatch(loadUser());
   } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
     dispatch({
       type: USER_LOGIN_FAIL,
-      payload: { msg: error.response.statusText, err: error.response.status },
+      payload: errors,
     });
   }
 };

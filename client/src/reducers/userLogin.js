@@ -26,17 +26,33 @@ export default function (state = initialState, action) {
         ...payload,
         loading: false,
         isAuthenticated: true,
+        error: null,
       };
     case USER_LOADED:
       return {
         ...state,
         userInfo: payload,
+        error: null,
       };
     case USER_LOGIN_FAIL:
-      return { ...state, loading: false, error: payload };
+      return { ...state, error: payload, loading: null };
     case USER_LOADED_FAIL:
+      return {
+        ...state,
+        userInfo: null,
+        loading: null,
+        token: null,
+        isAuthenticated: false,
+        error: null,
+      };
     case USER_LOG_OUT:
-      return { userInfo: null, loading: null, error: null, token: null };
+      return {
+        userInfo: null,
+        loading: null,
+        error: null,
+        token: null,
+        isAuthenticated: false,
+      };
     default:
       return state;
   }

@@ -19,3 +19,7 @@ export const USER_LOADED = 'USER_LOADED';
 export const USER_LOADED_FAIL = 'USER_LOADED_FAIL';
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
 export const USER_LOG_OUT = 'USER_LOG_OUT';
+
+// alert types
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
