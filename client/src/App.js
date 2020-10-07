@@ -8,6 +8,7 @@ import ProductScreen from './Components/Screens/ProductScreen';
 import CartScreen from './Components/Screens/CartScreen';
 import LoginScreen from './Components/Screens/LoginScreen';
 import registerScreen from './Components/Screens/RegisterScreen';
+import ShippingScreen from './Components/Screens/ShippingScreen';
 import ProfileScreen from './Components/Screens/ProfileScreen';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions';
@@ -31,6 +32,7 @@ const App = () => {
             <Route path='/cart/:id?' component={CartScreen} />
             <Route path='/register' component={registerScreen} />
             <PrivateRoute exact path='/profile' component={ProfileScreen} />
+            <PrivateRoute exact path='/shipping' component={ShippingScreen} />
           </Switch>
         </Container>
       </main>
