@@ -43,7 +43,10 @@ export const login = (email, password) => async (dispatch) => {
     }
     dispatch({
       type: USER_LOGIN_FAIL,
-      payload: { msg: error.response.data, err: error.response.status },
+      payload: { msg: error.response.data.msg, err: error.response.status },
     });
+    if (error.response.data.msg) {
+      dispatch(setAlert(error.response.data.msg, 'danger'));
+    }
   }
 };
