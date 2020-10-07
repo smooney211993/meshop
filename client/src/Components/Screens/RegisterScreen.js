@@ -22,7 +22,7 @@ const RegisterScreen = ({ location, history }) => {
     if (password !== confirmPassword) {
       dispatch(setAlert('Passwords Do Not Match', 'danger'));
     } else {
-      dispatch(register(name, email, password));
+      dispatch(register(email, name, password));
     }
   };
   useEffect(() => {
@@ -46,7 +46,7 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Control
             type='name'
             placeholder='Enter Name'
-            value={email}
+            value={name}
             onChange={(e) => setName(e.target.value)}></Form.Control>
         </Form.Group>
         <Form.Group controlId='email'>
