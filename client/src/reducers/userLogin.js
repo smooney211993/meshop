@@ -8,6 +8,8 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -23,6 +25,7 @@ export default function (state = initialState, action) {
   switch (type) {
     case USER_LOGIN_REQUEST:
     case USER_REGISTER_REQUEST:
+    case USER_UPDATE_REQUEST:
       return { ...state, loading: true };
     case USER_LOGIN_SUCCESS:
     case USER_REGISTER_SUCCESS:
@@ -38,9 +41,11 @@ export default function (state = initialState, action) {
         ...state,
         userInfo: payload,
         error: null,
+        loading: false,
       };
     case USER_LOGIN_FAIL:
     case USER_REGISTER_FAIL:
+    case USER_UPDATE_FAIL:
       return { ...state, error: payload, loading: null };
     case USER_LOADED_FAIL:
       return {

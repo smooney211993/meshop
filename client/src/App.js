@@ -8,6 +8,7 @@ import ProductScreen from './Components/Screens/ProductScreen';
 import CartScreen from './Components/Screens/CartScreen';
 import LoginScreen from './Components/Screens/LoginScreen';
 import registerScreen from './Components/Screens/RegisterScreen';
+import ProfileScreen from './Components/Screens/ProfileScreen';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions';
 // redux
@@ -28,6 +29,7 @@ const App = () => {
           <Route exact path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
           <Route path='/register' component={registerScreen} />
+          <Route path='/profile' component={ProfileScreen} />
         </Container>
       </main>
       <Footer />

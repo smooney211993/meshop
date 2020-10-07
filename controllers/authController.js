@@ -6,7 +6,7 @@ const registerUser = async (req, res, next) => {
   try {
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ msg: 'User Already Exists' });
+      return res.status(400).json({ errors: [{ msg: 'User Already Exists' }] });
     }
 
     user = new User({
@@ -61,7 +61,7 @@ const authUser = async (req, res, next) => {
         }
       );
     } else {
-      return res.status(400).json({ msg: 'Invalid Credentials' });
+      return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
     }
   } catch (error) {
     console.log(error.message);
@@ -69,6 +69,8 @@ const authUser = async (req, res, next) => {
   }
 };
 
+// private
+// api/users/
 const getUserProfile = async (req, res, next) => {
   try {
     console.log(req.user.id);
@@ -79,8 +81,30 @@ const getUserProfile = async (req, res, next) => {
     res.status(500).json('Server Error');
   }
 };
+//private
+//api/users/profile
+const updateUserProfile = async (req, res, next) => {
+  const { name, email, password } = req.body;
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({ errors: [{ msg: 'Server Error' }] });
+    }
+    user.name = name;
+    user.email = email;
+    user.password = password;
+    const updatedUser = await user.save();
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json('Server Error');
+  }
+};
+
 module.exports = {
   registerUser,
   authUser,
   getUserProfile,
+  updateUserProfile,
 };

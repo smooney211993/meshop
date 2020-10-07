@@ -8,6 +8,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_SUCCESS,
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alertActions';
@@ -82,7 +85,33 @@ export const register = (email, name, password) => async (dispatch) => {
     }
   }
 };
-
+export const updateUser = (name, email, password) => async (dispatch) => {
+  const config = {
+    headers: { 'content-type': 'application/json' },
+  };
+  const body = JSON.stringify({
+    name,
+    email,
+    password,
+  });
+  try {
+    dispatch({ type: USER_UPDATE_REQUEST });
+    await axios.put('/api/users', body, config);
+    dispatch(loadUser());
+  } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: USER_UPDATE_FAIL,
+      payload: { msg: error.response.data.msg, err: error.response.status },
+    });
+    if (error.response.data.msg) {
+      dispatch(setAlert(error.response.data.msg, 'danger'));
+    }
+  }
+};
 export const logOut = () => (dispatch) => {
   dispatch({ type: USER_LOG_OUT });
 };
