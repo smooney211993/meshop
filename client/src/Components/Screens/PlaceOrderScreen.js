@@ -34,9 +34,9 @@ const PlaceOrderScreen = ({ history }) => {
   const { order, success, error } = orderCreated;
   useEffect(() => {
     if (success) {
-      history.pushState(`/order/${order._id}`);
+      history.push(`/order/${order._id}`);
     }
-  }, order);
+  }, [history, success]);
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
