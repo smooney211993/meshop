@@ -33,7 +33,9 @@ const initialState = {
   cartShippingPrice: cartItemsPriceFromStorage > 100 ? 0 : 100,
   gst: cartItemsPriceFromStorage * 0.1,
 };
-
+const addDecimals = (num) => {
+  return (Math.round(num * 100) / 100).toFixed(2);
+};
 export default function (state = initialState, action) {
   const { payload, type } = action;
   switch (type) {
@@ -57,7 +59,7 @@ export default function (state = initialState, action) {
           cartItems: newCartItems,
           cartItemsPrice: newTotalPrice,
           cartShippingPrice: newTotalPrice > 100 ? 0 : 100,
-          gst: newTotalPrice * 0.1,
+          gst: addDecimals(Number((newTotalPrice * 0.1).toFixed(2))),
         };
       } else {
         const newCartItems = [...state.cartItems, payload];
@@ -71,7 +73,7 @@ export default function (state = initialState, action) {
           cartItems: newCartItems,
           cartItemsPrice: newTotalPrice,
           cartShippingPrice: newTotalPrice > 100 ? 0 : 100,
-          gst: newTotalPrice * 0.1,
+          gst: addDecimals(Number((newTotalPrice * 0.1).toFixed(2))),
         };
       }
     case CART_REMOVE_ITEM:
@@ -86,7 +88,7 @@ export default function (state = initialState, action) {
         cartItems: updatedCart,
         cartItemsPrice: updatedTotalPrice,
         cartShippingPrice: updatedTotalPrice > 100 ? 0 : 100,
-        gst: updatedTotalPrice * 0.1,
+        gst: addDecimals(Number((updatedTotalPrice * 0.1).toFixed(2))),
       };
     case CART_SAVE_SHIPPING_ADDRESS:
       return { ...state, loading: false, shippingAddress: payload };
