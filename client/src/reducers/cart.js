@@ -30,6 +30,8 @@ const initialState = {
   error: null,
   paymentMethod: cartPaymentMethodFromStorage,
   cartItemsPrice: cartItemsPriceFromStorage,
+  cartShippingPrice: cartItemsPriceFromStorage > 100 ? 0 : 100,
+  gst: cartItemsPriceFromStorage * 0.1,
 };
 
 export default function (state = initialState, action) {
@@ -54,6 +56,8 @@ export default function (state = initialState, action) {
           loading: false,
           cartItems: newCartItems,
           cartItemsPrice: newTotalPrice,
+          cartShippingPrice: newTotalPrice > 100 ? 0 : 100,
+          gst: newTotalPrice * 0.1,
         };
       } else {
         const newCartItems = [...state.cartItems, payload];
@@ -66,6 +70,8 @@ export default function (state = initialState, action) {
           loading: false,
           cartItems: newCartItems,
           cartItemsPrice: newTotalPrice,
+          cartShippingPrice: newTotalPrice > 100 ? 0 : 100,
+          gst: newTotalPrice * 0.1,
         };
       }
     case CART_REMOVE_ITEM:
@@ -79,6 +85,8 @@ export default function (state = initialState, action) {
         loading: false,
         cartItems: updatedCart,
         cartItemsPrice: updatedTotalPrice,
+        cartShippingPrice: updatedTotalPrice > 100 ? 0 : 100,
+        gst: updatedTotalPrice * 0.1,
       };
     case CART_SAVE_SHIPPING_ADDRESS:
       return { ...state, loading: false, shippingAddress: payload };

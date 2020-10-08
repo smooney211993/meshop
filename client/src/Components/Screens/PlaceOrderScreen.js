@@ -21,6 +21,8 @@ const PlaceOrderScreen = () => {
     paymentMethod,
     cartItems,
     cartItemsPrice,
+    cartShippingPrice,
+    gst,
   } = cart;
   return (
     <>
@@ -87,6 +89,26 @@ const PlaceOrderScreen = () => {
                   </Col>
                   <Col>${cartItemsPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Shipping: </Col>
+                  <Col>${cartShippingPrice}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>GST:</Col>
+                  <Col>{gst}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button
+                  type='button'
+                  className='btn-block'
+                  disabled={cartItemsPrice === 0}>
+                  Place Order
+                </Button>
               </ListGroup.Item>
             </ListGroup>
           </Card>
