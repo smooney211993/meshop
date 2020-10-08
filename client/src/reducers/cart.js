@@ -2,14 +2,19 @@ import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
   CART_LOADING,
+  CART_SAVE_SHIPPING_ADDRESS,
 } from '../actions/types';
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : [];
+
+const cartShippingAddressFromStorage = localStorage.getItem('shippingAddress')
+  ? JSON.parse(localStorage.getItem('shippingAddress'))
+  : {};
 const initialState = {
   cartItems: cartItemsFromStorage,
-  shippingAddress: {},
+  shippingAddress: cartShippingAddressFromStorage,
   loading: null,
   error: null,
 };
@@ -44,6 +49,8 @@ export default function (state = initialState, action) {
         loading: false,
         cartItems: state.cartItems.filter((x) => x.product !== payload),
       };
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return { ...state, loading: false, shippingAddress: payload };
     default:
       return state;
   }
