@@ -24,6 +24,8 @@ const PlaceOrderScreen = () => {
     cartShippingPrice,
     gst,
   } = cart;
+  const totalPrice =
+    Number(cartItemsPrice) + Number(cartShippingPrice) + Number(gst);
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -100,6 +102,12 @@ const PlaceOrderScreen = () => {
                 <Row>
                   <Col>GST:</Col>
                   <Col>{gst}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Total:</Col>
+                  <Col>{totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
