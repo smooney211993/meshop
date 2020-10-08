@@ -22,7 +22,7 @@ const PaymentScreen = ({ history }) => {
     if (!shippingAddress) {
       history.push('/shipping');
     }
-  }, [shippingAddress]);
+  }, [shippingAddress, history]);
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Button,
   Row,
@@ -9,14 +9,17 @@ import {
   ListGroupItem,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { createOrder } from '../../actions/orderActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Message from '../Layouts/Message';
 import CheckoutSteps from '../Layouts/CheckoutSteps';
 
 const PlaceOrderScreen = () => {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const {
+    shippingAddress,
     shippingAddress: { address, city, postalCode, country },
     paymentMethod,
     cartItems,
@@ -24,8 +27,23 @@ const PlaceOrderScreen = () => {
     cartShippingPrice,
     gst,
   } = cart;
+  console.log(shippingAddress);
   const totalPrice =
     Number(cartItemsPrice) + Number(cartShippingPrice) + Number(gst);
+  const orderCreated = useSelector((state) => state.orders);
+  const { order, success, error } = orderCreated;
+  const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice: cartItemsPrice,
+        taxPrice: gst,
+        totalPrice,
+      })
+    );
+  };
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -114,7 +132,8 @@ const PlaceOrderScreen = () => {
                 <Button
                   type='button'
                   className='btn-block'
-                  disabled={cartItemsPrice === 0}>
+                  disabled={cartItemsPrice === 0}
+                  onClick={placeOrderHandler}>
                   Place Order
                 </Button>
               </ListGroup.Item>
