@@ -20,6 +20,7 @@ const PlaceOrderScreen = () => {
     shippingAddress: { address, city, postalCode, country },
     paymentMethod,
     cartItems,
+    cartItemsPrice,
   } = cart;
   return (
     <>
@@ -71,6 +72,24 @@ const PlaceOrderScreen = () => {
               )}
             </ListGroup.Item>
           </ListGroup>
+        </Col>
+        <Col md={4}>
+          <Card>
+            <ListGroup>
+              <ListGroup.Item>
+                <h2>Order Summary</h2>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    Items: ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                    )
+                  </Col>
+                  <Col>${cartItemsPrice}</Col>
+                </Row>
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
         </Col>
       </Row>
     </>

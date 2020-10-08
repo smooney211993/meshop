@@ -1,4 +1,3 @@
-import { cartSavePaymentMethod } from '../actions/cartActions';
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
@@ -18,12 +17,19 @@ const cartShippingAddressFromStorage = localStorage.getItem('shippingAddress')
 const cartPaymentMethodFromStorage = localStorage.getItem('paymentMethod')
   ? JSON.parse(localStorage.getItem('paymentMethod'))
   : '';
+const cartItemsPriceFromStorage = localStorage.getItem('cartItemsPrice')
+  ? JSON.parse(localStorage.getItem('cartItems')).reduce(
+      (acc, item) => acc + item.price * item.qty,
+      0
+    )
+  : 0;
 const initialState = {
   cartItems: cartItemsFromStorage,
   shippingAddress: cartShippingAddressFromStorage,
   loading: null,
   error: null,
-  paymentMethod: cartSavePaymentMethod,
+  paymentMethod: cartPaymentMethodFromStorage,
+  cartItemsPrice: cartItemsPriceFromStorage,
 };
 
 export default function (state = initialState, action) {
@@ -36,25 +42,43 @@ export default function (state = initialState, action) {
         (item) => item.product === payload.product
       );
       if (existItem) {
+        const newCartItems = state.cartItems.map((x) =>
+          x.product === existItem.product ? payload : x
+        );
+        const newTotalPrice = newCartItems.reduce(
+          (acc, item) => acc + item.price * item.qty,
+          0
+        );
         return {
           ...state,
           loading: false,
-          cartItems: state.cartItems.map((x) =>
-            x.product === existItem.product ? payload : x
-          ),
+          cartItems: newCartItems,
+          cartItemsPrice: newTotalPrice,
         };
       } else {
+        const newCartItems = [...state.cartItems, payload];
+        const newTotalPrice = newCartItems.reduce(
+          (acc, item) => acc + item.price * item.qty,
+          0
+        );
         return {
           ...state,
           loading: false,
-          cartItems: [...state.cartItems, payload],
+          cartItems: newCartItems,
+          cartItemsPrice: newTotalPrice,
         };
       }
     case CART_REMOVE_ITEM:
+      const updatedCart = state.cartItems.filter((x) => x.product !== payload);
+      const updatedTotalPrice = updatedCart.reduce(
+        (acc, item) => acc + item.price * item.qty,
+        0
+      );
       return {
         ...state,
         loading: false,
-        cartItems: state.cartItems.filter((x) => x.product !== payload),
+        cartItems: updatedCart,
+        cartItemsPrice: updatedTotalPrice,
       };
     case CART_SAVE_SHIPPING_ADDRESS:
       return { ...state, loading: false, shippingAddress: payload };

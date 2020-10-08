@@ -26,6 +26,10 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       'cartItems',
       JSON.stringify(getState().cart.cartItems)
     );
+    localStorage.setItem(
+      'cartItemsPrice',
+      JSON.stringify(getState().cart.cartItemsPrice)
+    );
   } catch (error) {
     console.log(error.message);
   }
@@ -37,6 +41,10 @@ export const removeItemFromCart = (id) => (dispatch, getState) => {
     payload: id,
   });
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  localStorage.setItem(
+    'cartItemsPrice',
+    JSON.stringify(getState().cart.cartItemsPrice)
+  );
 };
 
 export const saveShippingAddress = (formState) => async (
