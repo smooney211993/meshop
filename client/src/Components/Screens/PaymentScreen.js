@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Form, Button, Col } from 'react-bootstrap';
+import { Form, Button, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartSavePaymentMethod } from '../../actions/cartActions';
 
@@ -30,23 +30,26 @@ const PaymentScreen = ({ history }) => {
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label as='legend'>Select Method</Form.Label>
+
+          <Row>
+            <Col>
+              <Form.Check
+                type='radio'
+                label='Paypal or Credit Card'
+                id='PayPal'
+                name='paymentMethod'
+                value='PayPal'
+                onChange={(e) => setPaymentMethod(e.target.value)}></Form.Check>
+              <Form.Check
+                type='radio'
+                label='Stripe'
+                id='Stripe'
+                name='paymentMethod'
+                value='Stripe'
+                onChange={(e) => setPaymentMethod(e.target.value)}></Form.Check>
+            </Col>
+          </Row>
         </Form.Group>
-        <Col>
-          <Form.Check
-            type='radio'
-            label='Paypal or Credit Card'
-            id='PayPal'
-            name='paymentMethod'
-            value='PayPal'
-            onChange={(e) => setPaymentMethod(e.target.value)}></Form.Check>
-          <Form.Check
-            type='radio'
-            label='Stripe'
-            id='Stripe'
-            name='paymentMethod'
-            value='Stripe'
-            onChange={(e) => setPaymentMethod(e.target.value)}></Form.Check>
-        </Col>
         <Button type='submit' variant='primary'>
           Continue
         </Button>
