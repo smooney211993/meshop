@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import CheckoutSteps from '../Layouts/CheckoutSteps';
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const {
@@ -32,6 +32,11 @@ const PlaceOrderScreen = () => {
     Number(cartItemsPrice) + Number(cartShippingPrice) + Number(gst);
   const orderCreated = useSelector((state) => state.orders);
   const { order, success, error } = orderCreated;
+  useEffect(() => {
+    if (success) {
+      history.pushState(`/order/${order._id}`);
+    }
+  }, order);
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
