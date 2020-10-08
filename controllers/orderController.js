@@ -36,6 +36,29 @@ const addOrderItems = async (req, res, next) => {
   }
 };
 
+// get order byID
+//private
+// getOrderById
+
+const getOrderById = async (req, res, next) => {
+  try {
+    const order = await Order.findById(req.params.id).populate(
+      'user',
+      'name',
+      'email'
+    );
+    if (!order) {
+      return res.status(404).json({ erorrs: [{ msg: 'Order Not Found' }] });
+    }
+
+    res.json(order);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json('Server Error');
+  }
+};
+
 module.exports = {
   addOrderItems,
+  getOrderById,
 };
