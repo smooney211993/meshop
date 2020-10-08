@@ -10,7 +10,6 @@ import {
   USER_REGISTER_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_FAIL,
-  USER_UPDATE_SUCCESS,
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alertActions';

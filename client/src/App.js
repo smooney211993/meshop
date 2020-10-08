@@ -10,6 +10,7 @@ import LoginScreen from './Components/Screens/LoginScreen';
 import registerScreen from './Components/Screens/RegisterScreen';
 import ShippingScreen from './Components/Screens/ShippingScreen';
 import ProfileScreen from './Components/Screens/ProfileScreen';
+import PaymentScreen from './Components/Screens/PaymentScreen';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions';
 import PrivateRoute from './Components/Route/PrivateRoute';
@@ -33,6 +34,7 @@ const App = () => {
             <Route path='/register' component={registerScreen} />
             <PrivateRoute exact path='/profile' component={ProfileScreen} />
             <PrivateRoute exact path='/shipping' component={ShippingScreen} />
+            <PrivateRoute exact path='/payment' component={PaymentScreen} />
           </Switch>
         </Container>
       </main>
