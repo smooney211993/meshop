@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import {
-  Button,
   Row,
   Col,
   ListGroup,
@@ -39,7 +38,7 @@ const OrderScreen = ({ match }) => {
       dispatch(getOrderById(orderId));
     }
     dispatch(getOrderById(orderId));
-  }, [dispatch, orderId]);
+  }, [dispatch, orderId, _id]);
   return loading ? (
     <Spinner />
   ) : error ? (

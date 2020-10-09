@@ -48,7 +48,7 @@ const getOrderById = async (req, res, next) => {
       'name email'
     );
     if (!order) {
-      return res.status(404).json({ erorrs: [{ msg: 'Order Not Found' }] });
+      return res.status(404).json({ errorrs: [{ msg: 'Order Not Found' }] });
     }
     console.log(order);
     res.json(order);
@@ -81,7 +81,7 @@ const updateOrderToPaid = async (req, res, next) => {
 };
 
 // update order to paid
-// route api/orders/:id
+// route api/orders/:id/paid
 // private
 
 module.exports = {
