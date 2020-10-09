@@ -5,6 +5,10 @@ import {
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_PAY_REQUEST,
+  ORDER_PAY_SUCCESS,
+  ORDER_PAY_FAIL,
+  ORDER_PAY_RESET,
 } from './types';
 
 import axios from 'axios';
@@ -46,6 +50,31 @@ export const getOrderById = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ORDER_DETAILS_FAIL,
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
+    });
+  }
+};
+
+export const payOrderAction = (orderId, paymentResults) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-type': 'application/json',
+    },
+  };
+  try {
+    dispatch({ type: ORDER_PAY_REQUEST });
+    const { data } = await axios.put(
+      `/api/orders/${orderId}/pay`,
+      paymentResults,
+      config
+    );
+    dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: ORDER_PAY_FAIL,
       payload: {
         msg: error.response.data.errors[0].msg,
         err: error.response.status,
