@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import axios from 'axios';
 import {
   Row,
   Col,
@@ -34,10 +35,15 @@ const OrderScreen = ({ match }) => {
     paidAt,
   } = orderDetails;
   useEffect(() => {
+    const addPaypalScript = async () => {
+      const { data } = await axios.get(`/api/config/paypal`);
+      console.log(data);
+    };
     if (_id !== orderId) {
       dispatch(getOrderById(orderId));
     }
     dispatch(getOrderById(orderId));
+    addPaypalScript();
   }, [dispatch, orderId, _id]);
   return loading ? (
     <Spinner />
