@@ -5,6 +5,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
+  _id: null,
   orderItems: null,
   shippingAddress: {},
   loading: true,
@@ -27,6 +28,7 @@ export default function (state = initialState, action) {
     case ORDER_DETAILS_SUCCESS:
       return {
         ...state,
+        _id: payload._id,
         orderItems: payload.orderItems,
         shippingAddress: payload.shippingAddress,
         shippingPrice: payload.shippingPrice,

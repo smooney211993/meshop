@@ -19,6 +19,7 @@ const OrderScreen = ({ match }) => {
   const dispatch = useDispatch();
   const orderDetails = useSelector((state) => state.orderDetails);
   const {
+    _id,
     orderItems,
     loading,
     shippingAddress: { address, city, postalCode, country },
@@ -34,6 +35,9 @@ const OrderScreen = ({ match }) => {
     paidAt,
   } = orderDetails;
   useEffect(() => {
+    if (_id !== orderId) {
+      dispatch(getOrderById(orderId));
+    }
     dispatch(getOrderById(orderId));
   }, [dispatch, orderId]);
   return loading ? (
