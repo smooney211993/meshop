@@ -12,7 +12,11 @@ const initialState = {
   shippingPrice: null,
   taxPrice: null,
   totalPrice: null,
+  isPaidAt: null,
+  isDelivered: null,
   paymentMethod: null,
+  paidAt: null,
+  user: null,
 };
 
 export default function (state = initialState, action) {
@@ -28,7 +32,12 @@ export default function (state = initialState, action) {
         shippingPrice: payload.shippingPrice,
         taxPrice: payload.taxPrice,
         totalPrice: payload.totalPrice,
+        isPaid: payload.isPaid,
+        isDelivered: payload.isDelivered,
         paymentMethod: payload.paymentMethod,
+        paidAt: payload.paidAt,
+        name: payload.user.name,
+        email: payload.user.email,
         loading: false,
       };
     case ORDER_DETAILS_FAIL:
