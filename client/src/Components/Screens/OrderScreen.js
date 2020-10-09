@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   Row,
@@ -16,8 +16,11 @@ import Message from '../Layouts/Message';
 
 const OrderScreen = ({ match }) => {
   const orderId = match.params.id;
+  const [sdkReady, setSdkReady] = useState(false);
   const dispatch = useDispatch();
   const orderDetails = useSelector((state) => state.orderDetails);
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
   const {
     _id,
     orderItems,
@@ -39,15 +42,23 @@ const OrderScreen = ({ match }) => {
       const { data: clientId } = await axios.get(`/api/config/paypal`);
       const script = document.createElement('script');
       script.type = 'text/javascript';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
       script.async = true;
-      console.log(clientId);
+      script.onLoad = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
     };
-    if (_id !== orderId) {
+    if (successPay || !orderItems) {
       dispatch(getOrderById(orderId));
+    } else if (!isPaid) {
+      if (!window.paypal) {
+        addPaypalScript();
+      } else {
+        setSdkReady(true);
+      }
     }
-    dispatch(getOrderById(orderId));
-    addPaypalScript();
-  }, [dispatch, orderId, _id]);
+  }, [dispatch, orderId, successPay]);
   return loading ? (
     <Spinner />
   ) : error ? (
@@ -155,13 +166,13 @@ const OrderScreen = ({ match }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>GST:</Col>
-                  <Col>{taxPrice}</Col>
+                  <Col>${taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total:</Col>
-                  <Col>{totalPrice}</Col>
+                  <Col>${totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
             </ListGroup>
