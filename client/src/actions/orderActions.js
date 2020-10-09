@@ -28,7 +28,10 @@ export const createOrder = (order) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
-      dispatch: { msg: error.response.data.errors[0].msg, err: error.response.status},
+      dispatch: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
     });
   }
 };
@@ -39,12 +42,14 @@ export const getOrderById = (id) => async (dispatch) => {
       type: ORDER_DETAILS_REQUEST,
     });
     const { data } = await axios.get(`/api/orders/${id}`);
-    debugger
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: ORDER_DETAILS_FAIL,
-      payload: { msg: error.response.data.errors[0].msg, err: error.response.status },
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
     });
   }
 };

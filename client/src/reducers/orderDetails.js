@@ -9,7 +9,10 @@ const initialState = {
   shippingAddress: {},
   loading: true,
   error: null,
+  shippingPrice: null,
   taxPrice: null,
+  totalPrice: null,
+  paymentMethod: null,
 };
 
 export default function (state = initialState, action) {
@@ -22,6 +25,10 @@ export default function (state = initialState, action) {
         ...state,
         orderItems: payload.orderItems,
         shippingAddress: payload.shippingAddress,
+        shippingPrice: payload.shippingPrice,
+        taxPrice: payload.taxPrice,
+        totalPrice: payload.totalPrice,
+        paymentMethod: payload.paymentMethod,
         loading: false,
       };
     case ORDER_DETAILS_FAIL:
