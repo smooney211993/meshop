@@ -3,6 +3,7 @@ import productList from './productList';
 import productItem from './productItem';
 import userLoginRegister from './userLogin';
 import orders from './orders';
+import orderDetails from './orderDetails';
 import alert from './alert';
 import cart from './cart';
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
   userLoginRegister,
   alert,
   orders,
+  orderDetails,
 });

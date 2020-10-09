@@ -12,6 +12,7 @@ import ShippingScreen from './Components/Screens/ShippingScreen';
 import ProfileScreen from './Components/Screens/ProfileScreen';
 import PaymentScreen from './Components/Screens/PaymentScreen';
 import PlaceOrderScreen from './Components/Screens/PlaceOrderScreen';
+import OrderScreen from './Components/Screens/OrderScreen'
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions';
 import PrivateRoute from './Components/Route/PrivateRoute';
@@ -41,6 +42,7 @@ const App = () => {
               path='/placeorder'
               component={PlaceOrderScreen}
             />
+            <PrivateRoute exact path='/order/:id' component={OrderScreen}/>
           </Switch>
         </Container>
       </main>

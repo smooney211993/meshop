@@ -32,7 +32,7 @@ const addOrderItems = async (req, res, next) => {
     res.status(201).json(createdOrder);
   } catch (error) {
     console.log(error.message);
-    res.status(500).json('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
 
@@ -44,17 +44,16 @@ const getOrderById = async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id).populate(
       'user',
-      'name',
-      'email'
+      'name email'
     );
     if (!order) {
       return res.status(404).json({ erorrs: [{ msg: 'Order Not Found' }] });
     }
-
+    console.log(order);
     res.json(order);
   } catch (error) {
     console.log(error.message);
-    res.status(500).json('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
 

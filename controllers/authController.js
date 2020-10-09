@@ -33,7 +33,7 @@ const registerUser = async (req, res, next) => {
     );
   } catch (error) {
     console.log(error.message);
-    res.status(500).json('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
 
@@ -65,7 +65,7 @@ const authUser = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
 
@@ -78,7 +78,7 @@ const getUserProfile = async (req, res, next) => {
     res.json(user);
   } catch (error) {
     console.log(error.message);
-    res.status(500).json('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
 //private
@@ -98,7 +98,7 @@ const updateUserProfile = async (req, res, next) => {
     res.json(updatedUser);
   } catch (error) {
     console.log(error.message);
-    res.status(500).json('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
 

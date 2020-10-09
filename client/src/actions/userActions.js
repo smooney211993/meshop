@@ -48,7 +48,10 @@ export const login = (email, password) => async (dispatch) => {
     }
     dispatch({
       type: USER_LOGIN_FAIL,
-      payload: { msg: error.response.data.msg, err: error.response.status },
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
     });
     if (error.response.data.msg) {
       dispatch(setAlert(error.response.data.msg, 'danger'));
@@ -77,7 +80,10 @@ export const register = (email, name, password) => async (dispatch) => {
     }
     dispatch({
       type: USER_REGISTER_FAIL,
-      payload: { msg: error.response.data.msg, err: error.response.status },
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
     });
     if (error.response.data.msg) {
       dispatch(setAlert(error.response.data.msg, 'danger'));
@@ -104,7 +110,10 @@ export const updateUser = (name, email, password) => async (dispatch) => {
     }
     dispatch({
       type: USER_UPDATE_FAIL,
-      payload: { msg: error.response.data.msg, err: error.response.status },
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
     });
     if (error.response.data.msg) {
       dispatch(setAlert(error.response.data.msg, 'danger'));

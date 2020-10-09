@@ -9,7 +9,7 @@ const getProducts = async (req, res) => {
     res.json(products);
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ msg: 'Server Error' });
+    res.status(500).json({ errors: [{ msg: 'Product Not Found' }] });
   }
 };
 
@@ -20,12 +20,12 @@ const getProductsById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
-      return res.status(400).json({ msg: 'Product Not Found' });
+      return res.status(400).json({ errors: [{ msg: 'Product Not Found' }] });
     }
     res.json(product);
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ msg: 'Server Error' });
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
 
