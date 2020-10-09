@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
 import {
   Row,
   Col,
@@ -10,7 +11,8 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrderById } from '../../actions/orderActions';
+import { getOrderById, payOrder } from '../../actions/orderActions';
+import { ORDER_PAY_RESET } from '../../actions/types';
 import Spinner from '../Layouts/Spinner';
 import Message from '../Layouts/Message';
 
@@ -44,21 +46,29 @@ const OrderScreen = ({ match }) => {
       script.type = 'text/javascript';
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
       script.async = true;
-      script.onLoad = () => {
+      script.onload = () => {
         setSdkReady(true);
       };
       document.body.appendChild(script);
     };
-    if (successPay || !orderItems) {
+    if (orderItems === null || successPay) {
+      dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderById(orderId));
+      // if successPay call dispatch again and load the order again to show paid
+      //if order is not there still dispatch to show order
     } else if (!isPaid) {
       if (!window.paypal) {
         addPaypalScript();
+        // if not paid add the paypal script
       } else {
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, successPay]);
+  }, [dispatch, orderId, successPay, orderItems]);
+  const successPaymentHandler = (paymentResult) => {
+    console.log(paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
+  };
   return loading ? (
     <Spinner />
   ) : error ? (
@@ -175,6 +185,19 @@ const OrderScreen = ({ match }) => {
                   <Col>${totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
+              {!isPaid && (
+                <ListGroup.Item>
+                  {loadingPay && <Spinner />}
+                  {!sdkReady ? (
+                    <Spinner />
+                  ) : (
+                    <PayPalButton
+                      amount={totalPrice}
+                      onSuccess={successPaymentHandler}
+                    />
+                  )}
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
         </Col>

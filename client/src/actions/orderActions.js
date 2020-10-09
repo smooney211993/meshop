@@ -58,7 +58,7 @@ export const getOrderById = (id) => async (dispatch) => {
   }
 };
 
-export const payOrderAction = (orderId, paymentResults) => async (dispatch) => {
+export const payOrder = (orderId, paymentResults) => async (dispatch) => {
   const config = {
     headers: {
       'Content-type': 'application/json',
