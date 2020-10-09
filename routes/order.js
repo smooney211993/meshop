@@ -4,9 +4,11 @@ const authToken = require('../middleware/authToken');
 const {
   addOrderItems,
   getOrderById,
+  updateOrderToPaid,
 } = require('../controllers/orderController');
 
 router.route('/').post(authToken, addOrderItems);
 router.route('/:id').get(authToken, getOrderById);
+route.route('/:id/pay').put(authToken, updateOrderToPaid);
 
 module.exports = router;
