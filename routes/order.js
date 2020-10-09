@@ -9,6 +9,6 @@ const {
 
 router.route('/').post(authToken, addOrderItems);
 router.route('/:id').get(authToken, getOrderById);
-route.route('/:id/pay').put(authToken, updateOrderToPaid);
+router.route('/:id/pay').put(authToken, updateOrderToPaid);
 
 module.exports = router;
