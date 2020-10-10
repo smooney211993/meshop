@@ -58,6 +58,10 @@ const getOrderById = async (req, res, next) => {
   }
 };
 
+// update order to paid
+// route api/orders/:id/paid
+// private
+
 const updateOrderToPaid = async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id);
@@ -80,9 +84,7 @@ const updateOrderToPaid = async (req, res, next) => {
   }
 };
 
-// update order to paid
-// route api/orders/:id/paid
-// private
+const getUserOrders = async (req, res) => {};
 
 module.exports = {
   addOrderItems,

@@ -51,7 +51,7 @@ const OrderScreen = ({ match }) => {
       };
       document.body.appendChild(script);
     };
-    if (orderItems === null || successPay) {
+    if (orderItems === null || successPay || _id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderById(orderId));
       // if successPay call dispatch again and load the order again to show paid
