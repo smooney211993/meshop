@@ -84,10 +84,25 @@ const updateOrderToPaid = async (req, res, next) => {
   }
 };
 
-const getUserOrders = async (req, res) => {};
+// get logged in user orders
+// api/orders/myorder
+
+const getLoggedInUserOrders = async (req, res) => {
+  try {
+    const order = await Order.find({ user: req.user.id });
+    if (!order) {
+      return res.status(400).json({ errors: [{ msg: 'User Has No Orders' }] });
+    }
+    res.json(order);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: 'Server Errror' }] });
+  }
+};
 
 module.exports = {
   addOrderItems,
   getOrderById,
   updateOrderToPaid,
+  getLoggedInUserOrders,
 };
