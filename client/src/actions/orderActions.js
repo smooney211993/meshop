@@ -8,6 +8,9 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
+  ORDER_LIST_MY_REQUEST,
+  ORDER_LIST_MY_SUCCESS,
+  ORDER_LIST_MY_FAIL,
 } from './types';
 
 import axios from 'axios';
@@ -74,6 +77,22 @@ export const payOrder = (orderId, paymentResults) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ORDER_PAY_FAIL,
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
+    });
+  }
+};
+
+export const getMyOrderList = () => async (dispatch) => {
+  try {
+    dispatch({ type: ORDER_LIST_MY_REQUEST });
+    const { data } = await axios.get(`/api/orders/myorders`);
+    dispatch({ type: ORDER_LIST_MY_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_MY_FAIL,
       payload: {
         msg: error.response.data.errors[0].msg,
         err: error.response.status,

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Col, Row } from 'react-bootstrap';
+import { Form, Button, Col, Row, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
 import { loadUser, updateUser } from '../../actions/userActions';
+import { getMyOrderList } from '../../actions/orderActions';
 import { setAlert } from '../../actions/alertActions';
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -12,6 +13,13 @@ const ProfileScreen = ({ location, history }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const dispatch = useDispatch();
   const userLoginRegister = useSelector((state) => state.userLoginRegister);
+  const orderList = useSelector((state) => state.orderList);
+  const {
+    loading: listLoading,
+    error: listError,
+    orderList: listOrder,
+  } = orderList;
+
   const alert = useSelector((state) => state.alert);
   const { userInfo, loading } = userLoginRegister;
 
@@ -27,6 +35,7 @@ const ProfileScreen = ({ location, history }) => {
   useEffect(() => {
     if (!userInfo) {
       dispatch(loadUser());
+      dispatch(getMyOrderList());
     }
     if (userInfo) {
       setName(userInfo.name);
@@ -86,6 +95,24 @@ const ProfileScreen = ({ location, history }) => {
       </Col>
       <Col md={9}>
         <h2>My Orders</h2>
+        {listLoading ? (
+          <Spinner />
+        ) : listError ? (
+          <Message variant='danger'>{listError}</Message>
+        ) : (
+          <Table striped border hover responsive className='table-sm'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>Total</th>
+                <th>PAID</th>
+                <th>ID</th>
+                <th>DELIVERED</th>
+              </tr>
+            </thead>
+          </Table>
+        )}
       </Col>
     </Row>
   );

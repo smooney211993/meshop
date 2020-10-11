@@ -10,6 +10,7 @@ const {
 
 router.route('/').post(authToken, addOrderItems);
 router.route('/myorders').get(authToken, getLoggedInUserOrders);
+// change endpoint
 router.route('/:id').get(authToken, getOrderById);
 router.route('/:id/pay').put(authToken, updateOrderToPaid);
 
