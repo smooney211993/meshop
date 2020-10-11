@@ -89,13 +89,15 @@ const updateOrderToPaid = async (req, res, next) => {
 
 const getLoggedInUserOrders = async (req, res) => {
   try {
-    const order = await Order.find({ user: req.user.id });
-    if (!order) {
+    const orders = await Order.find({ user: req.user.id });
+
+    console.log(orders);
+    if (!orders) {
       return res.status(400).json({ errors: [{ msg: 'User Has No Orders' }] });
     }
-    res.json(order);
+    res.json(orders);
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res.status(500).json({ errors: [{ msg: 'Server Errror' }] });
   }
 };
