@@ -103,6 +103,7 @@ const updateUserProfile = async (req, res, next) => {
 
 // get all users admin only
 // private admin
+// api/admin/users
 
 const getUsers = async (req, res) => {
   try {
@@ -113,10 +114,29 @@ const getUsers = async (req, res) => {
     res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
+
+// delete user
+// private admin
+//api/admin/users:id
+
+const deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(401).json({ errors: [{ msg: 'User Not Found' }] });
+    }
+    await user.remove();
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
+  }
+};
+
 module.exports = {
   registerUser,
   authUser,
   getUserProfile,
   updateUserProfile,
   getUsers,
+  deleteUser,
 };
