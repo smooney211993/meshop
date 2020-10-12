@@ -6,13 +6,19 @@ import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
 import { userListAsAdmin } from '../../actions/userActions';
 
-const UserListScreen = () => {
+const UserListScreen = ({ history }) => {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.userList);
+  const userLogin = useSelector((state) => state.userLoginRegister);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
-    dispatch(userListAsAdmin());
-  }, [dispatch]);
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(userListAsAdmin());
+    } else {
+      history.push('/');
+    }
+  }, [dispatch, history]);
   const { loading, users, error } = userList;
   return (
     <>
