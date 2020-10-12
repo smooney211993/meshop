@@ -35,10 +35,10 @@ const ProfileScreen = ({ location, history }) => {
   };
   useEffect(() => {
     dispatch(getMyOrderList());
-    if (!userInfo) {
+    if (userInfo == null) {
       dispatch(loadUser());
     }
-    if (!userInfo.name) {
+    if (userInfo.name !== null) {
       setName(userInfo.name);
       setEmail(userInfo.email);
     }

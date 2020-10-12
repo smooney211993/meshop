@@ -5,7 +5,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  users: [],
+  users: null,
   loading: null,
   error: null,
 };
