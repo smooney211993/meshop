@@ -10,6 +10,7 @@ import {
   USER_REGISTER_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_FAIL,
+  ORDER_LIST_MY_RESET,
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alertActions';
@@ -122,4 +123,5 @@ export const updateUser = (name, email, password) => async (dispatch) => {
 };
 export const logOut = () => (dispatch) => {
   dispatch({ type: USER_LOG_OUT });
+  dispatch({ type: ORDER_LIST_MY_RESET });
 };
