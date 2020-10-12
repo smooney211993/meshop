@@ -6,6 +6,7 @@ import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
 import { userListAsAdmin, userDeleteAsAdmin } from '../../actions/userActions';
 import { USER_DELETE_RESET } from '../../actions/types';
+import { setAlert } from '../../actions/alertActions';
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const UserListScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLoginRegister);
   const { userInfo } = userLogin;
   const { success } = useSelector((state) => state.userDelete);
+  const alert = useSelector((state) => state.alert);
 
   useEffect(() => {
     dispatch({ type: USER_DELETE_RESET });
@@ -22,15 +24,22 @@ const UserListScreen = ({ history }) => {
     } else {
       history.push('/');
     }
-  }, [dispatch, history, success]);
+  }, [dispatch, history, success, userInfo]);
   const deleteHandler = (id) => {
     if (window.confirm('Are You Sure. This Action Can Not Be Undone')) {
       dispatch(userDeleteAsAdmin(id));
+      dispatch(setAlert('User Successfully Deleted', 'success'));
     }
   };
   return (
     <>
       <h1>Users</h1>
+      {alert.length > 0 &&
+        alert.map((x) => (
+          <Message key={x.id} variant={x.alerType}>
+            {x.msg}
+          </Message>
+        ))}
       {loading ? (
         <Spinner />
       ) : error ? (
@@ -64,7 +73,7 @@ const UserListScreen = ({ history }) => {
                     )}
                   </td>
                   <td>
-                    <Link to={`/user/${user._id}/edit`}>
+                    <Link to={`/admin/user/${user._id}/edit`}>
                       <Button variant='light' className='btn-sm'>
                         <i className='fas fa-edit'></i>
                       </Button>
