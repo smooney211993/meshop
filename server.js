@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 5000;
 const products = require('./routes/products');
 const user = require('./routes/user');
 const auth = require('./routes/auth');
+const admin = require('./routes/admin');
 const orders = require('./routes/order');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
@@ -18,6 +19,7 @@ app.use('/api/products', products);
 app.use('/api/users', user);
 app.use('/api/auth', auth);
 app.use('/api/orders', orders);
+app.use('/api/admin', admin);
 app.get(`/api/config/paypal`, (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
