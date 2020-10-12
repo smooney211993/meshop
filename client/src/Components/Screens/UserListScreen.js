@@ -9,6 +9,7 @@ import { userListAsAdmin } from '../../actions/userActions';
 const UserListScreen = () => {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.userList);
+
   useEffect(() => {
     dispatch(userListAsAdmin());
   }, [dispatch]);

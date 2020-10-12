@@ -13,7 +13,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  userInfo: null,
+  userInfo: {},
   loading: null,
   error: null,
   token: localStorage.getItem('token'),

@@ -17,6 +17,7 @@ import UserListScreen from './Components/Screens/UserListScreen';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions';
 import PrivateRoute from './Components/Route/PrivateRoute';
+import PrivateAdminRoute from './Components/Route/PrivateAdminRoute';
 // redux
 
 const App = () => {
@@ -44,7 +45,10 @@ const App = () => {
               component={PlaceOrderScreen}
             />
             <PrivateRoute exact path='/order/:id' component={OrderScreen} />
-            <PrivateRoute path='/admin/userlist' component={UserListScreen} />
+            <PrivateAdminRoute
+              path='/admin/userlist'
+              component={UserListScreen}
+            />
           </Switch>
         </Container>
       </main>
