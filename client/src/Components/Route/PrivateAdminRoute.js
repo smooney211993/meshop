@@ -10,7 +10,10 @@ const PrivateAdminRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        !isAuthenticated && !loading && !userInfo.isAdmin ? (
+        !isAuthenticated &&
+        !loading &&
+        userInfo !== null &&
+        !userInfo.isAdmin ? (
           <Redirect to='/' />
         ) : (
           <Component {...props} />
