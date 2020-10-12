@@ -10,9 +10,9 @@ const initialState = {
   error: false,
 };
 
-export default function (state, action) {
+export default function (state = initialState, action) {
   const { payload, type } = action;
-  switch (key) {
+  switch (type) {
     case USER_DETAILS_REQUEST:
       return { ...state, loading: true };
     case USER_DETAILS_SUCCESS:
