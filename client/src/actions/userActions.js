@@ -125,7 +125,21 @@ export const updateUser = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const userListAsAdmin = () => async (dispatch) => {};
+export const userListAsAdmin = () => async (dispatch) => {
+  try {
+    dispatch({ type: USER_LIST_REQUEST });
+    const { data } = await axios.get('/api/admin/users');
+    dispatch({ type: USER_LIST_REQUEST });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAIL,
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
+    });
+  }
+};
 
 export const logOut = () => (dispatch) => {
   dispatch({ type: USER_LOG_OUT });
