@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+// api/users
 
 const registerUser = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -36,6 +37,7 @@ const registerUser = async (req, res, next) => {
     res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
+// api/auth
 
 const authUser = async (req, res, next) => {
   const { email, password } = req.body;
@@ -70,7 +72,8 @@ const authUser = async (req, res, next) => {
 };
 
 // private
-// api/users/
+// web token needed
+// api/auth/
 const getUserProfile = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
@@ -81,7 +84,7 @@ const getUserProfile = async (req, res, next) => {
   }
 };
 //private
-//api/users/profile
+//api/users/
 const updateUserProfile = async (req, res, next) => {
   const { name, email, password } = req.body;
   try {
@@ -133,6 +136,46 @@ const deleteUser = async (req, res) => {
   }
 };
 
+// get user by id
+// private admin
+// api/admin/users/:id
+
+const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ errors: [{ msg: 'User Not Found' }] });
+    }
+    res.json(user);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
+  }
+};
+
+// update user profie
+// private admin
+//api/admin/users/:id
+
+const updateUser = async (req, res) => {
+  const { name, email, isAdmin } = req.body;
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ errors: [{ msg: 'User Not Found' }] });
+    }
+    user.name = name;
+    user.email = email;
+    user.isAdmin = isAdmin;
+    const updatedUser = await user.save();
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
+  }
+};
+
 module.exports = {
   registerUser,
   authUser,
@@ -140,4 +183,6 @@ module.exports = {
   updateUserProfile,
   getUsers,
   deleteUser,
+  getUserById,
+  updateUser,
 };
