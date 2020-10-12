@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import productList from './productList';
 import productItem from './productItem';
 import userLoginRegister from './userLogin';
+import userList from './userList';
 import orders from './orders';
 import orderDetails from './orderDetails';
 import orderPay from './orderPay';
@@ -18,4 +19,5 @@ export default combineReducers({
   orderDetails,
   orderPay,
   orderList,
+  userList,
 });
