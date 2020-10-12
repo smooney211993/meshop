@@ -73,7 +73,6 @@ const authUser = async (req, res, next) => {
 // api/users/
 const getUserProfile = async (req, res, next) => {
   try {
-    console.log(req.user.id);
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
   } catch (error) {

@@ -1,11 +1,11 @@
 const User = require('../models/user');
 const isAdmin = async (req, res, next) => {
   try {
-    const user = User.findById(req.user.id);
+    const user = await User.findById(req.user.id);
     if (!user.isAdmin) {
       return res
-        .status(404)
-        .json({ errors: [{ msg: 'Not Authourized As Admin' }] });
+        .status(401)
+        .json({ errors: [{ msg: 'Not Authorized As Admin' }] });
     }
     next();
   } catch (error) {
