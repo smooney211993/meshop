@@ -102,9 +102,22 @@ const updateUserProfile = async (req, res, next) => {
   }
 };
 
+// get all users admin only
+// private admin
+
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
+  }
+};
 module.exports = {
   registerUser,
   authUser,
   getUserProfile,
   updateUserProfile,
+  getUsers,
 };
