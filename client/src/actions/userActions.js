@@ -129,7 +129,7 @@ export const userListAsAdmin = () => async (dispatch) => {
   try {
     dispatch({ type: USER_LIST_REQUEST });
     const { data } = await axios.get('/api/admin/users');
-    dispatch({ type: USER_LIST_SUCCESS });
+    dispatch({ type: USER_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: USER_LIST_FAIL,

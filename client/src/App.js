@@ -44,11 +44,7 @@ const App = () => {
               component={PlaceOrderScreen}
             />
             <PrivateRoute exact path='/order/:id' component={OrderScreen} />
-            <PrivateRoute
-              exact
-              path='/admin/userlist'
-              component={UserListScreen}
-            />
+            <PrivateRoute path='/admin/userlist' component={UserListScreen} />
           </Switch>
         </Container>
       </main>
