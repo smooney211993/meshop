@@ -11,6 +11,9 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_FAIL,
   ORDER_LIST_MY_RESET,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alertActions';
@@ -121,6 +124,9 @@ export const updateUser = (name, email, password) => async (dispatch) => {
     }
   }
 };
+
+export const userListAsAdmin = () => async (dispatch) => {};
+
 export const logOut = () => (dispatch) => {
   dispatch({ type: USER_LOG_OUT });
   dispatch({ type: ORDER_LIST_MY_RESET });
