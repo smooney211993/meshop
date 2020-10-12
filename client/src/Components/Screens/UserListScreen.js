@@ -4,22 +4,30 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
-import { userListAsAdmin } from '../../actions/userActions';
+import { userListAsAdmin, userDeleteAsAdmin } from '../../actions/userActions';
+import { USER_DELETE_RESET } from '../../actions/types';
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.userList);
+  const { loading, users, error } = userList;
   const userLogin = useSelector((state) => state.userLoginRegister);
   const { userInfo } = userLogin;
+  const { success } = useSelector((state) => state.userDelete);
 
   useEffect(() => {
+    dispatch({ type: USER_DELETE_RESET });
     if (userInfo && userInfo.isAdmin) {
       dispatch(userListAsAdmin());
     } else {
       history.push('/');
     }
-  }, [dispatch, history]);
-  const { loading, users, error } = userList;
+  }, [dispatch, history, success]);
+  const deleteHandler = (id) => {
+    if (window.confirm('Are You Sure. This Action Can Not Be Undone')) {
+      dispatch(userDeleteAsAdmin(id));
+    }
+  };
   return (
     <>
       <h1>Users</h1>
@@ -61,7 +69,10 @@ const UserListScreen = ({ history }) => {
                         <i className='fas fa-edit'></i>
                       </Button>
                     </Link>
-                    <Button variant='danger' className='btn-sm'>
+                    <Button
+                      variant='danger'
+                      className='btn-sm'
+                      onClick={() => deleteHandler(user._id)}>
                       <i className='fas fa-trash'></i>
                     </Button>
                   </td>

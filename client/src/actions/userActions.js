@@ -148,7 +148,7 @@ export const userListAsAdmin = () => async (dispatch) => {
 export const userDeleteAsAdmin = (userId) => async (dispatch) => {
   try {
     dispatch({ type: USER_DELETE_REQUEST });
-    await axios.delete(`api/admin/users/${userId}`);
+    await axios.delete(`/api/admin/users/${userId}`);
     dispatch({ type: USER_DELETE_SUCCESS });
   } catch (error) {
     dispatch({
