@@ -15,6 +15,9 @@ import {
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
   USER_LIST_RESET,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAIL,
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alertActions';
@@ -134,6 +137,22 @@ export const userListAsAdmin = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LIST_FAIL,
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
+    });
+  }
+};
+
+export const userDeleteAsAdmin = (userId) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_DELETE_REQUEST });
+    await axios.delete(`api/admin/users/${userId}`);
+    dispatch({ type: USER_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: USER_DELETE_FAIL,
       payload: {
         msg: error.response.data.errors[0].msg,
         err: error.response.status,
