@@ -4,6 +4,7 @@ import productItem from './productItem';
 import userLoginRegister from './userLogin';
 import userList from './userList';
 import userDelete from './userDelete';
+import userUpdateAdmin from './userUpdateAdmin';
 import userDetails from './userDetails';
 import orders from './orders';
 import orderDetails from './orderDetails';
@@ -24,4 +25,5 @@ export default combineReducers({
   userList,
   userDelete,
   userDetails,
+  userUpdateAdmin,
 });
