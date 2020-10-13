@@ -183,6 +183,25 @@ export const getUserDetailsAsAdmin = (userId) => async (dispatch) => {
   }
 };
 
+export const updateUserAsAdmin = (formData, userId) => async (dispatch) => {
+  const config = {
+    headers: { 'content-type': 'application/json' },
+  };
+  const body = JSON.stringify(formData);
+  try {
+    dispatch({ type: USER_UPDATE_REQUEST_ADMIN });
+    await axios.put(`/api/admin/users/${userId}`);
+    dispatch({ type: USER_UPATE_SUCCESS_ADMIN });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_FAIL_ADMIN,
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
+    });
+  }
+};
 export const logOut = () => (dispatch) => {
   dispatch({ type: USER_LOG_OUT });
   dispatch({ type: ORDER_LIST_MY_RESET });
