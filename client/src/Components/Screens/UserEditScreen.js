@@ -26,14 +26,14 @@ const UserEditScreen = ({ match }) => {
   const alert = useSelector((state) => state.alert);
   useEffect(() => {
     dispatch({ type: USER_UPDATE_RESET_ADMIN });
-    if (!user.name || user._id !== userId) {
+    if (!user.name || user._id !== userId || success) {
       dispatch(getUserDetailsAsAdmin(userId));
     } else {
       setName(user.name);
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
     }
-  }, [dispatch, userId, user, success, user]);
+  }, [dispatch, userId, user, success]);
   const submitHandler = (e) => {
     e.preventDefault();
     const body = {
@@ -42,7 +42,7 @@ const UserEditScreen = ({ match }) => {
       isAdmin,
     };
     dispatch(updateUserAsAdmin(body, userId));
-    dispatch(setAlert('User Successfully Updated', 'Success'));
+    dispatch(setAlert('User Successfully Updated', 'success'));
   };
   return (
     <>
