@@ -21,6 +21,9 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
+  USER_UPDATE_REQUEST_ADMIN,
+  USER_UPATE_SUCCESS_ADMIN,
+  USER_UPDATE_FAIL_ADMIN,
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alertActions';

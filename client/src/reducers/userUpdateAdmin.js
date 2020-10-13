@@ -20,6 +20,8 @@ export default function (state = initialState, action) {
       return { ...state, loading: false, success: true, error: null };
     case USER_UPDATE_FAIL_ADMIN:
       return { ...state, loading: false, error: payload };
+    case USER_UPDATE_RESET_ADMIN:
+      return { loading: null, success: null, error: null };
 
     default:
       return state;
