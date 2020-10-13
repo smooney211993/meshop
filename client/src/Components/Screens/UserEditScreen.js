@@ -33,7 +33,7 @@ const UserEditScreen = ({ match }) => {
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
     }
-  }, [dispatch, userId, user, success]);
+  }, [dispatch, userId, user, success, user]);
   const submitHandler = (e) => {
     e.preventDefault();
     const body = {
@@ -51,6 +51,7 @@ const UserEditScreen = ({ match }) => {
       </Link>
       <FormContainer>
         <h1>Edit User</h1>
+        {adminError && <Message variant='danger'>{adminError.msg}</Message>}
         {alert &&
           alert.map((x) => (
             <Message key={x.id} variant={x.alertType}>
