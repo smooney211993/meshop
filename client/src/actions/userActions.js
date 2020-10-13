@@ -190,7 +190,7 @@ export const updateUserAsAdmin = (formData, userId) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     dispatch({ type: USER_UPDATE_REQUEST_ADMIN });
-    await axios.put(`/api/admin/users/${userId}`);
+    await axios.put(`/api/admin/users/${userId}`, body, config);
     dispatch({ type: USER_UPATE_SUCCESS_ADMIN });
   } catch (error) {
     dispatch({

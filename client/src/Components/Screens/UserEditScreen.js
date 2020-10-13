@@ -10,6 +10,7 @@ import {
   updateUserAsAdmin,
 } from '../../actions/userActions';
 import { setAlert } from '../../actions/alertActions';
+import { USER_UPDATE_RESET_ADMIN } from '../../actions/types';
 
 const UserEditScreen = ({ match }) => {
   const userId = match.params.id;
@@ -18,9 +19,13 @@ const UserEditScreen = ({ match }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails);
+  const { loading: adminLoading, error: adminError, success } = useSelector(
+    (state) => state.userUpdateAdmin
+  );
   const { loading, error, user } = userDetails;
   const alert = useSelector((state) => state.alert);
   useEffect(() => {
+    dispatch({ type: USER_UPDATE_RESET_ADMIN });
     if (!user.name || user._id !== userId) {
       dispatch(getUserDetailsAsAdmin(userId));
     } else {
@@ -28,10 +33,16 @@ const UserEditScreen = ({ match }) => {
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
     }
-  }, [dispatch, userId, user]);
+  }, [dispatch, userId, user, success]);
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log('hello');
+    const body = {
+      name,
+      email,
+      isAdmin,
+    };
+    dispatch(updateUserAsAdmin(body, userId));
+    dispatch(setAlert('User Successfully Updated', 'Success'));
   };
   return (
     <>
