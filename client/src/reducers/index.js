@@ -3,6 +3,7 @@ import productList from './productList';
 import productItem from './productItem';
 import productDelete from './productDelete';
 import productCreate from './productCreate';
+import productUpdate from './productUpdate';
 import userLoginRegister from './userLogin';
 import userList from './userList';
 import userDelete from './userDelete';
@@ -30,4 +31,5 @@ export default combineReducers({
   userUpdateAdmin,
   productDelete,
   productCreate,
+  productUpdate,
 });
