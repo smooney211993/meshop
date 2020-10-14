@@ -23,15 +23,16 @@ const ProductListScreen = ({ history, match }) => {
   const alert = useSelector((state) => state.alert);
 
   useEffect(() => {
+    dispatch({ type: PRODUCT_DELETE_RESET });
     if (userInfo && userInfo.isAdmin) {
       dispatch(getProducts());
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, deleteSuccess]);
   const deleteHandler = (id) => {
     if (window.confirm('Are You Sure. This Action Can Not Be Undone')) {
-      // deleteproducts
+      dispatch(deleteProductById(id));
       dispatch(setAlert('User Successfully Deleted', 'success'));
     }
   };
@@ -49,7 +50,7 @@ const ProductListScreen = ({ history, match }) => {
         </Col>
       </Row>
       {deleteLoading && <Spinner />}
-      {deleteError && dispatch(setAlert(deleteError.msg, 'danger'))}
+      {deleteError && <Message variant='danger'>{deleteError.msg}</Message>}
 
       {alert.length > 0 &&
         alert.map((x) => (
