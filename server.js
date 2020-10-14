@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -6,6 +7,7 @@ const user = require('./routes/user');
 const auth = require('./routes/auth');
 const admin = require('./routes/admin');
 const orders = require('./routes/order');
+const upload = require('./routes/upload');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
@@ -23,6 +25,8 @@ app.use('/api/admin', admin);
 app.get(`/api/config/paypal`, (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
+app.use('/api/upload', upload);
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.listen(PORT, () => {
   console.log(
