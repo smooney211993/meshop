@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
 import { setAlert } from '../../actions/alertActions';
-import { getProducts } from '../../actions/productActions';
+import { getProducts, deleteProductById } from '../../actions/productActions';
+import { PRODUCT_DELETE_RESET } from '../../actions/types';
 
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,11 @@ const ProductListScreen = ({ history, match }) => {
   const { loading, products, error } = productList;
   const userLogin = useSelector((state) => state.userLoginRegister);
   const { userInfo } = userLogin;
+  const {
+    success: deleteSuccess,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useSelector((state) => state.productDelete);
 
   const alert = useSelector((state) => state.alert);
 
@@ -42,6 +48,8 @@ const ProductListScreen = ({ history, match }) => {
           </Button>
         </Col>
       </Row>
+      {deleteLoading && <Spinner />}
+      {deleteError && dispatch(setAlert(deleteError.msg, 'danger'))}
 
       {alert.length > 0 &&
         alert.map((x) => (

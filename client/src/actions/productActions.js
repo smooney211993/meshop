@@ -51,4 +51,18 @@ export const getProductById = (id) => async (dispatch) => {
   }
 };
 
-export const deleteProductById = (id) => async (dispatch) => {};
+export const deleteProductById = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_DELETE_REQUEST });
+    await axios.delete(`api/admin/products/${id}`);
+    dispatch({ type: PRODUCT_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DELETE_FAIL,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
