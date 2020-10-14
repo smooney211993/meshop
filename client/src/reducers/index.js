@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import productList from './productList';
 import productItem from './productItem';
 import productDelete from './productDelete';
+import productCreate from './productCreate';
 import userLoginRegister from './userLogin';
 import userList from './userList';
 import userDelete from './userDelete';
@@ -28,4 +29,5 @@ export default combineReducers({
   userDetails,
   userUpdateAdmin,
   productDelete,
+  productCreate,
 });
