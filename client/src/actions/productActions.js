@@ -7,6 +7,9 @@ import {
   PRODUCT_ITEM_REQUEST,
   PRODUCT_ITEM_FAIL,
   CLEAR_PRODUCT_ITEM,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
 } from './types';
 
 export const getProducts = () => async (dispatch) => {
@@ -47,3 +50,5 @@ export const getProductById = (id) => async (dispatch) => {
     });
   }
 };
+
+export const deleteProductById = (id) => async (dispatch) => {};
