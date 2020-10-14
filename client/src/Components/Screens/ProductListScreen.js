@@ -53,7 +53,6 @@ const ProductListScreen = ({ history, match }) => {
   const deleteHandler = (id) => {
     if (window.confirm('Are You Sure. This Action Can Not Be Undone')) {
       dispatch(deleteProductById(id));
-      dispatch(setAlert('Product Successfully Deleted', 'success'));
     }
   };
 
@@ -75,8 +74,6 @@ const ProductListScreen = ({ history, match }) => {
       </Row>
       {deleteLoading && <Spinner />}
       {createLoading && <Spinner />}
-      {createError && <Message variant='danger'>{deleteError.msg}</Message>}
-      {createError && <Message variant='danger'>{createError.msg}</Message>}
 
       {alert.length > 0 &&
         alert.map((x) => (

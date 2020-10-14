@@ -17,6 +17,7 @@ import {
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
 } from './types';
+import { setAlert } from './alertActions';
 
 export const getProducts = () => async (dispatch) => {
   dispatch({ type: CLEAR_PRODUCT_ITEM });
@@ -31,7 +32,7 @@ export const getProducts = () => async (dispatch) => {
     dispatch({
       type: PRODUCT_LIST_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -50,7 +51,7 @@ export const getProductById = (id) => async (dispatch) => {
     dispatch({
       type: PRODUCT_ITEM_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -62,11 +63,16 @@ export const deleteProductById = (id) => async (dispatch) => {
     dispatch({ type: PRODUCT_DELETE_REQUEST });
     await axios.delete(`/api/admin/products/${id}`);
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
+    dispatch(setAlert('Product SuccessFully Deleted'));
   } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      dispatch(setAlert(errors[0].msg, 'danger'));
+    }
     dispatch({
       type: PRODUCT_DELETE_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -81,11 +87,16 @@ export const createProduct = () => async (dispatch, getState) => {
     dispatch({ type: PRODUCT_CREATE_REQUEST });
     const { data } = await axios.post(`/api/admin/products/create`, {}, config);
     dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
+    dispatch(setAlert('Product SuccessFully Created', 'success'));
   } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      dispatch(setAlert(errors.response.data.errors[0].msg, 'danger'));
+    }
     dispatch({
       type: PRODUCT_CREATE_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -107,11 +118,16 @@ export const updateProductAsAdmin = (formData, productId) => async (
       config
     );
     dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
+    dispatch(setAlert('Product Successfully Updated', 'success'));
   } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      dispatch(setAlert(errors[0].msg, 'danger'));
+    }
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
