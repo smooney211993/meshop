@@ -6,6 +6,11 @@ export const PRODUCT_ITEM_SUCCESS = 'PRODUCT_ITEM_SUCCESS';
 export const PRODUCT_ITEM_FAIL = 'PRODUCT_ITEM_FAIL';
 export const CLEAR_PRODUCT_ITEM = 'CLEAR_PRODUCT_ITEM';
 
+// product delete as admin types
+export const PRODUCT_DELETE_REQUEST = 'PRODUCT_DELETE_REQUEST';
+export const PRODUCT_DELETE_SUCCESS = 'PRODUCT_DELETE_SUCCESS';
+export const PRODUCT_DELETE_FAIL = 'PRODUCT_DELETE_FAIL';
+
 // Cart Constant Types
 export const CART_LOADING = 'CART_LOADING';
 export const CART_ADD_ITEM = 'CARD_ADD_ITEM';

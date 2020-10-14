@@ -4,8 +4,6 @@ import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
-import { userListAsAdmin, userDeleteAsAdmin } from '../../actions/userActions';
-import { USER_DELETE_RESET } from '../../actions/types';
 import { setAlert } from '../../actions/alertActions';
 import { getProducts } from '../../actions/productActions';
 
