@@ -31,7 +31,7 @@ const getProductsById = async (req, res) => {
 
 // delete product by id
 // private and only admin
-//api/product/:id
+//api/admin/product/:id
 const deleteProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -46,6 +46,8 @@ const deleteProductById = async (req, res) => {
   }
 };
 
+// update product by id
+//api/admin/product/:id
 const updateProductById = async (req, res) => {
   const {
     name,
@@ -71,6 +73,29 @@ const updateProductById = async (req, res) => {
 
     const updateProduct = await product.save();
     res.json(updateProduct);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
+  }
+};
+//create product
+//post api/admin/products/create
+//private/admin
+const createProduct = async (req, res) => {
+  try {
+    const product = new Product({
+      name: 'Sample Name',
+      price: 0,
+      user: req.user.id,
+      image: '/image/sample.jpg',
+      brand: 'Sample Brand',
+      category: 'Sample Category',
+      countInStock: 0,
+      numReviews: 0,
+      description: 0,
+    });
+    const createdProduct = await product.save();
+    res.status(201).json(createdProduct);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ errors: [{ msg: 'Server Error' }] });
