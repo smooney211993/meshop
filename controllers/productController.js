@@ -1,4 +1,6 @@
 const Product = require('../models/product');
+const authToken = require('../middleware/authToken');
+const isAdmin = require('../middleware/isAdmin');
 
 // fetch all products
 // public route
