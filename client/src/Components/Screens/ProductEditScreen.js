@@ -8,10 +8,10 @@ import FormContainer from '../Layouts/FormContainer';
 import { getProductById } from '../../actions/productActions';
 import { setAlert } from '../../actions/alertActions';
 
-const UserEditScreen = ({ match }) => {
+const ProductEditScreen = ({ match }) => {
   const productId = match.params.id;
   const [name, setName] = useState('');
-  const [price, priceEmail] = useState(0);
+  const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
@@ -23,8 +23,7 @@ const UserEditScreen = ({ match }) => {
 
   const alert = useSelector((state) => state.alert);
   useEffect(() => {
-    dispatch({ type: USER_UPDATE_RESET_ADMIN });
-    if (!product.name || product._id !== productId || success) {
+    if (!product.name || product._id !== productId) {
       dispatch(getProductById(productId));
     } else {
       setName(product.name);
@@ -39,7 +38,6 @@ const UserEditScreen = ({ match }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     // update product
-    dispatch(setAlert('User Successfully Updated', 'success'));
   };
   return (
     <>
@@ -75,7 +73,7 @@ const UserEditScreen = ({ match }) => {
                 type='price'
                 placeholder='Enter Price'
                 value={price}
-                onChange={(e) => setEmail(e.target.value)}></Form.Control>
+                onChange={(e) => setPrice(e.target.value)}></Form.Control>
             </Form.Group>
             <Form.Group controlId='image'>
               <Form.Label>Image</Form.Label>
