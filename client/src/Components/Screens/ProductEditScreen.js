@@ -5,8 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
 import FormContainer from '../Layouts/FormContainer';
-import { getProductById } from '../../actions/productActions';
+import {
+  getProductById,
+  updateProductAsAdmin,
+} from '../../actions/productActions';
 import { setAlert } from '../../actions/alertActions';
+import { PRODUCT_UPDATE_RESET } from '../../actions/types';
 
 const ProductEditScreen = ({ match }) => {
   const productId = match.params.id;
@@ -20,10 +24,16 @@ const ProductEditScreen = ({ match }) => {
   const dispatch = useDispatch();
   const productItem = useSelector((state) => state.productItem);
   const { loading, error, product } = productItem;
+  const {
+    loading: updateLoading,
+    error: updateError,
+    success: updateSuccess,
+  } = useSelector((state) => state.productUpdate);
 
   const alert = useSelector((state) => state.alert);
   useEffect(() => {
-    if (!product.name || product._id !== productId) {
+    dispatch({ type: PRODUCT_UPDATE_RESET });
+    if (!product.name || product._id !== productId || updateSuccess) {
       dispatch(getProductById(productId));
     } else {
       setName(product.name);
@@ -37,7 +47,16 @@ const ProductEditScreen = ({ match }) => {
   }, [dispatch, productId, product]);
   const submitHandler = (e) => {
     e.preventDefault();
-    // update product
+    const body = {
+      name,
+      price,
+      image,
+      brand,
+      category,
+      countInStock,
+      description,
+    };
+    dispatch(updateProductAsAdmin(body, productId));
   };
   return (
     <>
@@ -46,6 +65,7 @@ const ProductEditScreen = ({ match }) => {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
+        {updateLoading && <Spinner />}
         {error && <Message variant='danger'>{error.msg}</Message>}
         {alert &&
           alert.map((x) => (

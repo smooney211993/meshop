@@ -101,7 +101,11 @@ export const updateProductAsAdmin = (formData, productId) => async (
   const body = JSON.stringify(formData);
   try {
     dispatch({ type: PRODUCT_UPDATE_REQUEST });
-    const { data } = await axios.put(`/api/admin/products/${productId}`);
+    const { data } = await axios.put(
+      `/api/admin/products/${productId}`,
+      body,
+      config
+    );
     dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
