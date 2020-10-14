@@ -70,3 +70,22 @@ export const deleteProductById = (id) => async (dispatch) => {
     });
   }
 };
+
+export const createProduct = () => async (dispatch) => {
+  const config = {
+    headers: { 'content-type': 'application/json' },
+  };
+  try {
+    dispatch({ type: PRODUCT_CREATE_REQUEST });
+    const { data } = await axios.post(`/api/admin/products/create`, {}, config);
+    dispatch({ type: PRODUCT_CREATE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_FAIL,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
