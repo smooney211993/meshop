@@ -5,8 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
 import { setAlert } from '../../actions/alertActions';
-import { getProducts, deleteProductById } from '../../actions/productActions';
-import { PRODUCT_DELETE_RESET } from '../../actions/types';
+import {
+  getProducts,
+  deleteProductById,
+  createProduct,
+} from '../../actions/productActions';
+import {
+  PRODUCT_DELETE_RESET,
+  PRODUCT_CREATE_RESET,
+} from '../../actions/types';
 
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -20,21 +27,38 @@ const ProductListScreen = ({ history, match }) => {
     error: deleteError,
   } = useSelector((state) => state.productDelete);
 
+  const {
+    success: createSuccess,
+    loading: createLoading,
+    error: createError,
+    product,
+  } = useSelector((state) => state.productCreate);
+
   const alert = useSelector((state) => state.alert);
 
   useEffect(() => {
     dispatch({ type: PRODUCT_DELETE_RESET });
+    dispatch({ type: PRODUCT_CREATE_RESET });
     if (userInfo && userInfo.isAdmin) {
       dispatch(getProducts());
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo, deleteSuccess]);
+    if (createSuccess) {
+      history.push(`/admin/product/${product._id}/edit`);
+    } else {
+      dispatch(getProducts());
+    }
+  }, [dispatch, history, userInfo, deleteSuccess, createSuccess, product]);
   const deleteHandler = (id) => {
     if (window.confirm('Are You Sure. This Action Can Not Be Undone')) {
       dispatch(deleteProductById(id));
       dispatch(setAlert('User Successfully Deleted', 'success'));
     }
+  };
+
+  const createProductHandler = () => {
+    dispatch(createProduct(history));
   };
   return (
     <>
@@ -43,14 +67,16 @@ const ProductListScreen = ({ history, match }) => {
           <h1>Products</h1>
         </Col>
         <Col className='text-right'>
-          <Button className='my-3'>
+          <Button className='my-3' onClick={createProductHandler}>
             {' '}
             <i className='fas fa-plus'></i>Create Product
           </Button>
         </Col>
       </Row>
       {deleteLoading && <Spinner />}
-      {deleteError && <Message variant='danger'>{deleteError.msg}</Message>}
+      {createLoading && <Spinner />}
+      {createError && <Message variant='danger'>{deleteError.msg}</Message>}
+      {createError && <Message variant='danger'>{createError.msg}</Message>}
 
       {alert.length > 0 &&
         alert.map((x) => (

@@ -9,7 +9,7 @@ const initialState = {
   loading: null,
   success: null,
   error: null,
-  product: null,
+  product: {},
 };
 
 export default function (state = initialState, action) {
