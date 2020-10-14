@@ -13,7 +13,9 @@ import {
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_FAIL,
-  PRODUCT_CREATE_RESET,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
 } from './types';
 
 export const getProducts = () => async (dispatch) => {
@@ -82,6 +84,28 @@ export const createProduct = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
+      payload: {
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
+      },
+    });
+  }
+};
+
+export const updateProductAsAdmin = (formData, productId) => async (
+  dispatch
+) => {
+  const config = {
+    headers: { 'content-type': 'application/json' },
+  };
+  const body = JSON.stringify(formData);
+  try {
+    dispatch({ type: PRODUCT_UPDATE_REQUEST });
+    const { data } = await axios.put(`/api/admin/products/${productId}`);
+    dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_UPDATE_FAIL,
       payload: {
         msg: error.response.data.errors[0].msg,
         err: error.response.status,
