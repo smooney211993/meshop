@@ -45,6 +45,38 @@ const deleteProductById = async (req, res) => {
     res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
+
+const updateProductById = async (req, res) => {
+  const {
+    name,
+    price,
+    description,
+    image,
+    brand,
+    category,
+    countInStock,
+  } = req.body;
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ errors: [{ msg: 'Product Not Found' }] });
+    }
+    product.name = name;
+    product.price = price;
+    product.description = description;
+    product.image = image;
+    product.brand = brand;
+    product.category = category;
+    product.countInStock = countInStock;
+
+    const updateProduct = await product.save();
+    res.json(updateProduct);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
+  }
+};
+
 module.exports = {
   getProducts,
   getProductsById,
