@@ -29,8 +29,8 @@ export const getProducts = () => async (dispatch) => {
     dispatch({
       type: PRODUCT_LIST_FAIL,
       payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
       },
     });
   }
@@ -48,8 +48,8 @@ export const getProductById = (id) => async (dispatch) => {
     dispatch({
       type: PRODUCT_ITEM_FAIL,
       payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
       },
     });
   }
@@ -64,8 +64,8 @@ export const deleteProductById = (id) => async (dispatch) => {
     dispatch({
       type: PRODUCT_DELETE_FAIL,
       payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
       },
     });
   }
@@ -83,8 +83,8 @@ export const createProduct = () => async (dispatch, getState) => {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
       payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
+        msg: error.response.data.errors[0].msg,
+        err: error.response.status,
       },
     });
   }
