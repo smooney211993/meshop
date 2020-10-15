@@ -19,7 +19,7 @@ const UserEditScreen = ({ match }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails);
-  const { loading: adminLoading, error: adminError, success } = useSelector(
+  const { error: adminError, success } = useSelector(
     (state) => state.userUpdateAdmin
   );
   const { loading, error, user } = userDetails;

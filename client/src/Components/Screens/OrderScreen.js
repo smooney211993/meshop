@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { PayPalButton } from 'react-paypal-button-v2';
+
 import {
   Row,
   Col,
@@ -42,12 +43,14 @@ const OrderScreen = ({ match }) => {
   useEffect(() => {
     const addPaypalScript = async () => {
       const { data: clientId } = await axios.get(`/api/config/paypal`);
+      console.log(clientId);
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
+        console.log('loaded');
       };
       document.body.appendChild(script);
     };

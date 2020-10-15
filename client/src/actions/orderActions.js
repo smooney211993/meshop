@@ -12,6 +12,7 @@ import {
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
 } from './types';
+import { setAlert } from './alertActions';
 
 import axios from 'axios';
 
@@ -31,11 +32,16 @@ export const createOrder = (order) => async (dispatch) => {
       type: ORDER_CREATE_SUCCESS,
       payload: data,
     });
+    dispatch(setAlert('Order Successfully Created', 'success'));
   } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      dispatch(setAlert(errors[0].msg, 'danger'));
+    }
     dispatch({
       type: ORDER_CREATE_FAIL,
       dispatch: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -53,7 +59,7 @@ export const getOrderById = (id) => async (dispatch) => {
     dispatch({
       type: ORDER_DETAILS_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -78,7 +84,7 @@ export const payOrder = (orderId, paymentResults) => async (dispatch) => {
     dispatch({
       type: ORDER_PAY_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -94,7 +100,7 @@ export const getMyOrderList = () => async (dispatch) => {
     dispatch({
       type: ORDER_LIST_MY_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });

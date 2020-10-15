@@ -4,7 +4,6 @@ import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
-import { setAlert } from '../../actions/alertActions';
 import {
   getProducts,
   deleteProductById,
@@ -21,16 +20,13 @@ const ProductListScreen = ({ history, match }) => {
   const { loading, products, error } = productList;
   const userLogin = useSelector((state) => state.userLoginRegister);
   const { userInfo } = userLogin;
-  const {
-    success: deleteSuccess,
-    loading: deleteLoading,
-    error: deleteError,
-  } = useSelector((state) => state.productDelete);
+  const { success: deleteSuccess, loading: deleteLoading } = useSelector(
+    (state) => state.productDelete
+  );
 
   const {
     success: createSuccess,
     loading: createLoading,
-    error: createError,
     product,
   } = useSelector((state) => state.productCreate);
 

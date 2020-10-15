@@ -9,7 +9,6 @@ import {
   getProductById,
   updateProductAsAdmin,
 } from '../../actions/productActions';
-import { setAlert } from '../../actions/alertActions';
 import { PRODUCT_UPDATE_RESET } from '../../actions/types';
 
 const ProductEditScreen = ({ match }) => {
@@ -21,14 +20,13 @@ const ProductEditScreen = ({ match }) => {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
+  const [uploading, setUploading] = useState(false);
   const dispatch = useDispatch();
   const productItem = useSelector((state) => state.productItem);
   const { loading, error, product } = productItem;
-  const {
-    loading: updateLoading,
-    error: updateError,
-    success: updateSuccess,
-  } = useSelector((state) => state.productUpdate);
+  const { loading: updateLoading, success: updateSuccess } = useSelector(
+    (state) => state.productUpdate
+  );
 
   const alert = useSelector((state) => state.alert);
   useEffect(() => {
@@ -44,7 +42,7 @@ const ProductEditScreen = ({ match }) => {
       setCountInStock(product.countInStock);
       setDescription(product.description);
     }
-  }, [dispatch, productId, product]);
+  }, [dispatch, productId, product, updateSuccess]);
   const submitHandler = (e) => {
     e.preventDefault();
     const body = {
