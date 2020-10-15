@@ -5,6 +5,8 @@ const User = require('../models/user');
 // public route
 // api/product
 const getProducts = async (req, res) => {
+  const pageSize = 3;
+  const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
     ? {
         name: {
@@ -14,8 +16,11 @@ const getProducts = async (req, res) => {
       }
     : {};
   try {
-    const products = await Product.find({ ...keyword });
-    res.json(products);
+    const count = await Product.countDocuments({ ...keyword });
+    const products = await Product.find({ ...keyword })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+    res.json({ products, page, pages: Math.ceil(count / pageSize) });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ errors: [{ msg: 'Product Not Found' }] });

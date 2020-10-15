@@ -23,11 +23,15 @@ import {
 } from './types';
 import { setAlert } from './alertActions';
 
-export const getProducts = (keyword = '') => async (dispatch) => {
+export const getProducts = (keyword = '', pageNumber = '') => async (
+  dispatch
+) => {
   dispatch({ type: CLEAR_PRODUCT_ITEM });
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get(`/api/products?keyword=${keyword}`);
+    const { data } = await axios.get(
+      `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+    );
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data,
