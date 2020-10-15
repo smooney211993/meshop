@@ -14,6 +14,9 @@ import {
   ORDER_LIST_ADMIN_REQUEST,
   ORDER_LIST_ADMIN_SUCCESS,
   ORDER_LIST_ADMIN_FAIL,
+  ORDER_DELIVER_ADMIN_REQUEST,
+  ORDER_DELIVER_ADMIN_SUCCESS,
+  ORDER_DELIVER_ADMIN_FAIL,
 } from './types';
 import { setAlert } from './alertActions';
 
@@ -118,6 +121,26 @@ export const getOrdersAsAdmin = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ORDER_LIST_ADMIN_FAIL,
+      payload: {
+        msg: error.response.statusText,
+        err: error.response.status,
+      },
+    });
+  }
+};
+
+export const updateOrderDeliveryStatus = (orderId) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-type': 'application/json',
+    },
+  };
+  try {
+    dispatch({ type: ORDER_DELIVER_ADMIN_REQUEST });
+    await axios.put(`/api/admin/orders/${orderId}/delivered`, {}, config);
+  } catch (error) {
+    dispatch({
+      type: ORDER_DELIVER_ADMIN_FAIL,
       payload: {
         msg: error.response.statusText,
         err: error.response.status,
