@@ -226,7 +226,7 @@ const OrderScreen = ({ match }) => {
                 </ListGroup.Item>
               )}
               {loadingDeliver && <Spinner />}
-              {userInfo.isAdmin && isPaid && !isDelivered && (
+              {userInfo && userInfo.isAdmin && isPaid && !isDelivered && (
                 <ListGroupItem>
                   <Button
                     type='button'
