@@ -139,4 +139,5 @@ module.exports = {
   updateOrderToPaid,
   getLoggedInUserOrders,
   getOrders,
+  updateOrderToDeilvered,
 };

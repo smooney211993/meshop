@@ -8,13 +8,19 @@ const {
   getUserById,
   updateUser,
 } = require('../controllers/authController');
-const { getOrders } = require('../controllers/orderController');
+const {
+  getOrders,
+  updateOrderToDeilvered,
+} = require('../controllers/orderController');
 const {
   deleteProductById,
   createProduct,
   updateProductById,
 } = require('../controllers/productController');
 router.route('/orders').get(authToken, isAdmin, getOrders);
+router
+  .route('/orders/:id/delivered')
+  .put(authToken, isAdmin, updateOrderToDeilvered);
 router.route('/users').get(authToken, isAdmin, getUsers);
 router
   .route('/users/:id')
