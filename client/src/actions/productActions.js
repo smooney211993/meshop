@@ -19,6 +19,7 @@ import {
   PRODUCT_CREATE_REVIEW_FAIL,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_RESET,
 } from './types';
 import { setAlert } from './alertActions';
 
@@ -129,6 +130,30 @@ export const updateProductAsAdmin = (formData, productId) => async (
     }
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
+      payload: {
+        msg: error.response.statusText,
+        err: error.response.status,
+      },
+    });
+  }
+};
+
+export const productCreateReview = (formData, productId) => async (
+  dispatch
+) => {
+  const config = {
+    headers: { 'content-type': 'application/json' },
+  };
+  const body = JSON.stringify(formData);
+
+  try {
+    dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
+    await axios.post(`/api/products/${productId}/reviews`, body, config);
+    dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
+    dispatch(setAlert('Review Successfully Created', 'success'));
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_REVIEW_FAIL,
       payload: {
         msg: error.response.statusText,
         err: error.response.status,
