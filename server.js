@@ -1,3 +1,4 @@
+const morgan = require('morgan');
 const path = require('path');
 const express = require('express');
 const app = express();
@@ -16,6 +17,10 @@ dotenv.config();
 connectDB();
 
 app.use(express.json());
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.use('/api/products', products);
 app.use('/api/users', user);

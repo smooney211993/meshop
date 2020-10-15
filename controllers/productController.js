@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const User = require('../models/user');
 
 // fetch all products
 // public route
@@ -101,6 +102,46 @@ const createProduct = async (req, res) => {
     res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 };
+// post
+//create new review
+//private
+// api/products/:id/reviews
+const createNewReview = async (req, res) => {
+  const { rating, comment } = req.body;
+  try {
+    const product = await Product.findById(req.params.id);
+    const user = await User.findById(req.user.id);
+    if (!product) {
+      return res.status(404).json({ errors: [{ msg: 'Product Not Found' }] });
+    }
+    const alreadyReviewed = product.reviews.find(
+      (review) => review.user.toString() === req.user.id
+    );
+
+    if (alreadyReviewed) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Product Already Reviewed' }] });
+    }
+
+    const review = {
+      name: user.name,
+      rating: Number(rating),
+      comment,
+    };
+
+    product.reviews.push(review);
+    product.numReviews = product.reviews.length;
+    product.rating =
+      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      product.reviews.length;
+    await product.save();
+    res.status(201).json({ msg: 'Reviews Added' });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
+  }
+};
 
 module.exports = {
   getProducts,
@@ -108,4 +149,5 @@ module.exports = {
   deleteProductById,
   createProduct,
   updateProductById,
+  createNewReview,
 };
