@@ -35,4 +35,5 @@ export default combineReducers({
   productDelete,
   productCreate,
   productUpdate,
+  orderDeliver,
 });

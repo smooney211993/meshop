@@ -125,9 +125,10 @@ const updateOrderToDeilvered = async (req, res) => {
     if (!order) {
       return res.staus(404).json({ errors: [{ msg: 'Order Not Found' }] });
     }
-    order.isDeilvered = true;
+    order.isDelivered = true;
     order.deliveredAt = Date.now();
     const updatedOrder = await order.save();
+    res.json(updatedOrder);
   } catch (error) {
     console.log(error);
     res.status(500).json({ errors: [{ msg: 'Server Errror' }] });

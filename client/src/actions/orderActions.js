@@ -138,6 +138,7 @@ export const updateOrderDeliveryStatus = (orderId) => async (dispatch) => {
   try {
     dispatch({ type: ORDER_DELIVER_ADMIN_REQUEST });
     await axios.put(`/api/admin/orders/${orderId}/delivered`, {}, config);
+    dispatch({ type: ORDER_DELIVER_ADMIN_SUCCESS });
   } catch (error) {
     dispatch({
       type: ORDER_DELIVER_ADMIN_FAIL,

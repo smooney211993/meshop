@@ -9,6 +9,7 @@ import {
   Image,
   Card,
   ListGroupItem,
+  Button,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,6 +31,7 @@ const OrderScreen = ({ match }) => {
   const dispatch = useDispatch();
   const orderDetails = useSelector((state) => state.orderDetails);
   const orderPay = useSelector((state) => state.orderPay);
+  const { userInfo } = useSelector((state) => state.userLoginRegister);
   const { loading: loadingPay, success: successPay } = orderPay;
   const {
     loading: loadingDeliver,
@@ -66,8 +68,14 @@ const OrderScreen = ({ match }) => {
       };
       document.body.appendChild(script);
     };
-    if (orderItems === null || successPay || _id !== orderId) {
+    if (
+      orderItems === null ||
+      successPay ||
+      successDeliver ||
+      _id !== orderId
+    ) {
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_ADMIN_RESET });
       dispatch(getOrderById(orderId));
       // if successPay call dispatch again and load the order again to show paid
       //if order is not there still dispatch to show order
@@ -79,10 +87,14 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, successPay, orderItems, isPaid, _id]);
+  }, [dispatch, orderId, successPay, orderItems, isPaid, _id, successDeliver]);
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
+  };
+
+  const deliverHandler = () => {
+    dispatch(updateOrderDeliveryStatus(_id));
   };
   return loading ? (
     <Spinner />
@@ -212,6 +224,17 @@ const OrderScreen = ({ match }) => {
                     />
                   )}
                 </ListGroup.Item>
+              )}
+              {loadingDeliver && <Spinner />}
+              {userInfo.isAdmin && isPaid && !isDelivered && (
+                <ListGroupItem>
+                  <Button
+                    type='button'
+                    className='btn btn-block'
+                    onClick={deliverHandler}>
+                    Mark As Delivered
+                  </Button>
+                </ListGroupItem>
               )}
             </ListGroup>
           </Card>
