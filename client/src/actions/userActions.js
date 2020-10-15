@@ -24,6 +24,7 @@ import {
   USER_UPDATE_REQUEST_ADMIN,
   USER_UPATE_SUCCESS_ADMIN,
   USER_UPDATE_FAIL_ADMIN,
+  ORDER_CREATE_RESET,
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alertActions';
@@ -204,4 +205,5 @@ export const logOut = () => (dispatch) => {
   dispatch({ type: USER_LOG_OUT });
   dispatch({ type: ORDER_LIST_MY_RESET });
   dispatch({ type: USER_LIST_RESET });
+  dispatch({ type: ORDER_CREATE_RESET });
 };
