@@ -28,8 +28,11 @@ const PlaceOrderScreen = ({ history }) => {
     gst,
   } = cart;
   console.log(shippingAddress);
-  const totalPrice =
-    Number(cartItemsPrice) + Number(cartShippingPrice) + Number(gst);
+  const totalPrice = (
+    Number(cartItemsPrice) +
+    Number(cartShippingPrice) +
+    Number(gst)
+  ).toFixed(2);
   const orderCreated = useSelector((state) => state.orders);
   const { order, success, error } = orderCreated;
   useEffect(() => {
@@ -113,13 +116,13 @@ const PlaceOrderScreen = ({ history }) => {
                     Items: ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
                     )
                   </Col>
-                  <Col>${cartItemsPrice}</Col>
+                  <Col>${cartItemsPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping: </Col>
-                  <Col>${cartShippingPrice}</Col>
+                  <Col>${cartShippingPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

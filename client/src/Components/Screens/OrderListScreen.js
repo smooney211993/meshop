@@ -70,6 +70,9 @@ const OrderListScreen = ({ history }) => {
                     ) : (
                       <i className='fas fa-times' style={{ color: 'red' }}></i>
                     )}
+                    <Link to={`/admin/order/${order._id}`}>
+                      <Button variant='primary'>Details</Button>
+                    </Link>
                   </td>
                 </tr>
               ))}

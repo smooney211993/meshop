@@ -179,7 +179,7 @@ const OrderScreen = ({ match }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>GST:</Col>
-                  <Col>${taxPrice}</Col>
+                  <Col>${taxPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
