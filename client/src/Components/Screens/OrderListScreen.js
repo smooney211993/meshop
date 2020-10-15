@@ -72,7 +72,7 @@ const OrderListScreen = ({ history }) => {
                     )}
                   </td>
                   <td>
-                    <Link to={`/admin/order/${order._id}`}>
+                    <Link to={`/order/${order._id}`}>
                       <Button variant='primary'>Details</Button>
                     </Link>
                   </td>

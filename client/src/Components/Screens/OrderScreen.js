@@ -12,8 +12,15 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrderById, payOrder } from '../../actions/orderActions';
-import { ORDER_PAY_RESET } from '../../actions/types';
+import {
+  getOrderById,
+  payOrder,
+  updateOrderDeliveryStatus,
+} from '../../actions/orderActions';
+import {
+  ORDER_PAY_RESET,
+  ORDER_DELIVER_ADMIN_RESET,
+} from '../../actions/types';
 import Spinner from '../Layouts/Spinner';
 import Message from '../Layouts/Message';
 
@@ -24,6 +31,11 @@ const OrderScreen = ({ match }) => {
   const orderDetails = useSelector((state) => state.orderDetails);
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
+  const {
+    loading: loadingDeliver,
+    success: successDeliver,
+    error: errorDeliver,
+  } = useSelector((state) => state.orderDeliver);
   const {
     _id,
     orderItems,
