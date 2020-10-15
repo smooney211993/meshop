@@ -104,7 +104,7 @@ const getLoggedInUserOrders = async (req, res) => {
 
 const getOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.user.id });
+    const orders = await Order.find({}).populate('user', 'id name');
     if (!orders) {
       return res.status(404).json({ errors: [{ msg: 'Orders Not Found' }] });
     }
