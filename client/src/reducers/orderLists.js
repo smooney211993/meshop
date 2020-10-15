@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
     case ORDER_LIST_ADMIN_SUCCESS:
       return { ...state, loading: false, orders: payload, error: null };
     case ORDER_LIST_ADMIN_FAIL:
-      return { ...state, loading: false, error: payload };
+      return { ...state, loading: false, error: payload, orders: [] };
 
     default:
       return state;

@@ -13,6 +13,7 @@ import ProfileScreen from './Components/Screens/ProfileScreen';
 import PaymentScreen from './Components/Screens/PaymentScreen';
 import PlaceOrderScreen from './Components/Screens/PlaceOrderScreen';
 import OrderScreen from './Components/Screens/OrderScreen';
+import OrderListScreen from './Components/Screens/OrderListScreen';
 import UserListScreen from './Components/Screens/UserListScreen';
 import UserEditScreen from './Components/Screens/UserEditScreen';
 import ProductListScreen from './Components/Screens/ProductListScreen';
@@ -63,6 +64,10 @@ const App = () => {
             <PrivateAdminRoute
               path='/admin/product/:id/edit'
               component={ProductEditScreen}
+            />
+            <PrivateAdminRoute
+              path='/admin/orderlist'
+              component={OrderListScreen}
             />
           </Switch>
         </Container>

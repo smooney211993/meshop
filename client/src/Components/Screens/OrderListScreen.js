@@ -22,14 +22,10 @@ const OrderListScreen = ({ history }) => {
       history.push('/');
     }
   }, [dispatch, history, userInfo]);
-  const deleteHandler = (id) => {
-    if (window.confirm('Are You Sure. This Action Can Not Be Undone')) {
-      dispatch(userDeleteAsAdmin(id));
-      dispatch(setAlert('User Successfully Deleted', 'success'));
-    }
-  };
+
   return (
     <>
+      {' '}
       <h1>Orders</h1>
       {alert.length > 0 &&
         alert.map((x) => (
@@ -58,11 +54,23 @@ const OrderListScreen = ({ history }) => {
               orders.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
-                  <td>{order.user}</td>
-                  <td>{order.date}</td>
-                  <td>{order.total}</td>
-                  <td>{order.paid}</td>
-                  <td>{order.delivered}</td>
+                  <td>{order.user.name}</td>
+                  <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>{order.totalPrice}</td>
+                  <td>
+                    {order.isPaid ? (
+                      order.paidAt.substring(0, 10)
+                    ) : (
+                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                    )}
+                  </td>
+                  <td>
+                    {order.isDelivered ? (
+                      order.deliveredAt.substring(0, 10)
+                    ) : (
+                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                    )}
+                  </td>
                 </tr>
               ))}
           </tbody>
