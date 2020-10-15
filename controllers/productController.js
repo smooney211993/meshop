@@ -5,8 +5,16 @@ const User = require('../models/user');
 // public route
 // api/product
 const getProducts = async (req, res) => {
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
   try {
-    const products = await Product.find({});
+    const products = await Product.find({ ...keyword });
     res.json(products);
   } catch (error) {
     console.log(error.message);

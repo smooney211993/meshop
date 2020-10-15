@@ -6,13 +6,13 @@ const SearchBar = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      history.pushState(`/search/${keyword}`);
+      history.push(`/search/${keyword}`);
     } else {
       history.push('/');
     }
   };
   return (
-    <Form inline>
+    <Form inline onSubmit={submitHandler}>
       <Form.Control
         type='text'
         name='q'

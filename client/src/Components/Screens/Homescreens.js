@@ -9,13 +9,14 @@ import Message from '../Layouts/Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../actions/productActions';
 
-const Homescreens = () => {
+const Homescreens = ({ match }) => {
+  const keyword = match.params.keyword;
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    dispatch(getProducts(keyword));
+  }, [dispatch, keyword]);
   return (
     <>
       <h1>Latest Products</h1>
