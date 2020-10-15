@@ -138,7 +138,7 @@ export const updateProductAsAdmin = (formData, productId) => async (
   }
 };
 
-export const productCreateReview = (formData, productId) => async (
+export const createProductReview = (formData, productId) => async (
   dispatch
 ) => {
   const config = {
