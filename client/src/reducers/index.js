@@ -13,6 +13,7 @@ import orders from './orders';
 import orderDetails from './orderDetails';
 import orderPay from './orderPay';
 import orderList from './orderList';
+import orderLists from './orderLists';
 import alert from './alert';
 import cart from './cart';
 export default combineReducers({
@@ -25,6 +26,7 @@ export default combineReducers({
   orderDetails,
   orderPay,
   orderList,
+  orderLists,
   userList,
   userDelete,
   userDetails,

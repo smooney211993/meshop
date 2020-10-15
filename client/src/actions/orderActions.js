@@ -11,6 +11,9 @@ import {
   ORDER_LIST_MY_REQUEST,
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
+  ORDER_LIST_ADMIN_REQUEST,
+  ORDER_LIST_ADMIN_SUCCESS,
+  ORDER_LIST_ADMIN_FAIL,
 } from './types';
 import { setAlert } from './alertActions';
 
@@ -99,6 +102,22 @@ export const getMyOrderList = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ORDER_LIST_MY_FAIL,
+      payload: {
+        msg: error.response.statusText,
+        err: error.response.status,
+      },
+    });
+  }
+};
+
+export const getOrdersAsAdmin = () => async (dispatch) => {
+  try {
+    dispatch({ type: ORDER_LIST_ADMIN_REQUEST });
+    const { data } = await axios.get(`/api/admin/orders`);
+    dispatch({ type: ORDER_LIST_ADMIN_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_ADMIN_FAIL,
       payload: {
         msg: error.response.statusText,
         err: error.response.status,
