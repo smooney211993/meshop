@@ -10,6 +10,7 @@ import {
   updateProductAsAdmin,
 } from '../../actions/productActions';
 import { PRODUCT_UPDATE_RESET } from '../../actions/types';
+import axios from 'axios';
 
 const ProductEditScreen = ({ match }) => {
   const productId = match.params.id;
@@ -56,6 +57,27 @@ const ProductEditScreen = ({ match }) => {
     };
     dispatch(updateProductAsAdmin(body, productId));
   };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+    try {
+      const config = {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      };
+      const { data } = await axios.post('/api/upload', formData, config);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setUploading(false);
+    }
+  };
   return (
     <>
       <Link to='/admin/productlist' className='btn btn-light my-3'>
@@ -100,7 +122,11 @@ const ProductEditScreen = ({ match }) => {
                 placeholder='Enter Image'
                 value={image}
                 onChange={(e) => setImage(e.target.value)}></Form.Control>
-              <Form.File id='image-file' label='Choose File' custom></Form.File>
+              <Form.File
+                id='image-file'
+                label='Choose File'
+                custom
+                onChange={uploadFileHandler}></Form.File>
               {uploading && <Spinner />}
             </Form.Group>
             <Form.Group controlId='brand'>

@@ -117,6 +117,7 @@ export const updateUser = (name, email, password) => async (dispatch) => {
     dispatch({ type: USER_UPDATE_REQUEST });
     await axios.put('/api/users', body, config);
     dispatch(loadUser());
+    dispatch(setAlert('Profile Successfully Updated', 'success'));
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {

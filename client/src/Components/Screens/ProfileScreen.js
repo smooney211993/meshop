@@ -30,7 +30,6 @@ const ProfileScreen = ({ location, history }) => {
       dispatch(setAlert('Passwords Do Not Match', 'danger'));
     } else {
       dispatch(updateUser(name, email, password));
-      dispatch(setAlert('Profile Succesfully Updated', 'success'));
     }
   };
   useEffect(() => {
