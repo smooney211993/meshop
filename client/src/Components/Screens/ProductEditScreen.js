@@ -100,6 +100,8 @@ const ProductEditScreen = ({ match }) => {
                 placeholder='Enter Image'
                 value={image}
                 onChange={(e) => setImage(e.target.value)}></Form.Control>
+              <Form.File id='image-file' label='Choose File' custom></Form.File>
+              {uploading && <Spinner />}
             </Form.Group>
             <Form.Group controlId='brand'>
               <Form.Label>Brand</Form.Label>

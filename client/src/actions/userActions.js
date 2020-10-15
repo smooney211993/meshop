@@ -63,7 +63,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -95,7 +95,7 @@ export const register = (email, name, password) => async (dispatch) => {
     dispatch({
       type: USER_REGISTER_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -125,13 +125,10 @@ export const updateUser = (name, email, password) => async (dispatch) => {
     dispatch({
       type: USER_UPDATE_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
-    if (error.response.data.msg) {
-      dispatch(setAlert(error.response.data.msg, 'danger'));
-    }
   }
 };
 
@@ -144,7 +141,7 @@ export const userListAsAdmin = () => async (dispatch) => {
     dispatch({
       type: USER_LIST_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -160,7 +157,7 @@ export const userDeleteAsAdmin = (userId) => async (dispatch) => {
     dispatch({
       type: USER_DELETE_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -176,7 +173,7 @@ export const getUserDetailsAsAdmin = (userId) => async (dispatch) => {
     dispatch({
       type: USER_DETAILS_FAIL,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
@@ -196,7 +193,7 @@ export const updateUserAsAdmin = (formData, userId) => async (dispatch) => {
     dispatch({
       type: USER_UPDATE_FAIL_ADMIN,
       payload: {
-        msg: error.response.data.errors[0].msg,
+        msg: error.response.statusText,
         err: error.response.status,
       },
     });
