@@ -128,6 +128,7 @@ const createNewReview = async (req, res) => {
       name: user.name,
       rating: Number(rating),
       comment,
+      user: req.user.id,
     };
 
     product.reviews.push(review);
