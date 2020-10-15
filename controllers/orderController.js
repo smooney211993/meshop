@@ -101,7 +101,9 @@ const getLoggedInUserOrders = async (req, res) => {
     res.status(500).json({ errors: [{ msg: 'Server Errror' }] });
   }
 };
-
+// private admin
+//api/admin/orders
+//get all orders
 const getOrders = async (req, res) => {
   try {
     const orders = await Order.find({}).populate('user', 'id name');
@@ -115,6 +117,22 @@ const getOrders = async (req, res) => {
   }
 };
 
+// private admin/
+//api/admin/orders/:id/delivered
+const updateOrderToDeilvered = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return res.staus(404).json({ errors: [{ msg: 'Order Not Found' }] });
+    }
+    order.isDeilvered = true;
+    order.deliveredAt = Date.now();
+    const updatedOrder = await order.save();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ errors: [{ msg: 'Server Errror' }] });
+  }
+};
 module.exports = {
   addOrderItems,
   getOrderById,
