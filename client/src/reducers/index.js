@@ -11,6 +11,7 @@ import userUpdateAdmin from './userUpdateAdmin';
 import userDetails from './userDetails';
 import orders from './orders';
 import orderDetails from './orderDetails';
+import orderDeliver from './orderDeliver';
 import orderPay from './orderPay';
 import orderList from './orderList';
 import orderLists from './orderLists';
