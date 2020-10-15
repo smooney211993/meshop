@@ -34,6 +34,9 @@ const ProductScreen = ({ match, history }) => {
   } = useSelector((state) => state.productCreateReview);
   const alert = useSelector((state) => state.alert);
   const { userInfo } = useSelector((state) => state.userLoginRegister);
+  const alreadyComment = userInfo
+    ? product.reviews.find((p) => p.user === userInfo._id)
+    : null;
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     dispatch(getProductById(match.params.id));
@@ -176,6 +179,7 @@ const ProductScreen = ({ match, history }) => {
                         <Form.Control
                           as='select'
                           value={rating}
+                          disabled={alreadyComment ? true : false}
                           onChange={(e) => setRating(e.target.value)}>
                           <option value=''>Select...</option>
                           <option value='1'>1 - Poor</option>
@@ -191,13 +195,19 @@ const ProductScreen = ({ match, history }) => {
                           as='textarea'
                           row='3'
                           value={comment}
+                          disabled={alreadyComment ? true : false}
                           onChange={(e) =>
                             setComment(e.target.value)
                           }></Form.Control>
                       </Form.Group>
 
-                      <Button type='submit' variant='primary'>
-                        Submit
+                      <Button
+                        type='submit'
+                        variant='primary'
+                        disabled={alreadyComment ? true : false}>
+                        {alreadyComment
+                          ? 'Thank You For Reviewing'
+                          : 'Submit Your Review'}
                       </Button>
                     </Form>
                   ) : (
