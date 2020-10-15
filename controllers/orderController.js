@@ -102,9 +102,23 @@ const getLoggedInUserOrders = async (req, res) => {
   }
 };
 
+const getOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user.id });
+    if (!orders) {
+      return res.status(404).json({ errors: [{ msg: 'Orders Not Found' }] });
+    }
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ errors: [{ msg: 'Server Errror' }] });
+  }
+};
+
 module.exports = {
   addOrderItems,
   getOrderById,
   updateOrderToPaid,
   getLoggedInUserOrders,
+  getOrders,
 };
