@@ -15,6 +15,7 @@ const getProducts = async (req, res) => {
         },
       }
     : {};
+  // check if there is query param of keyword if not returns an empty object
   try {
     const count = await Product.countDocuments({ ...keyword });
     const products = await Product.find({ ...keyword })
@@ -157,6 +158,21 @@ const createNewReview = async (req, res) => {
   }
 };
 
+// get the top rated products
+// get api/products/top
+// public
+const getTopRatedProducts = async (req, res) => {
+  try {
+    const products = await products.find({}).sort({ rating: -1 }).limit(3);
+    if (!products) {
+      return res.status(404).json({ errors: [{ msg: 'Products Not Found' }] });
+    }
+    res.json(products);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: 'Product Not Found' }] });
+  }
+};
 module.exports = {
   getProducts,
   getProductsById,
@@ -164,4 +180,5 @@ module.exports = {
   createProduct,
   updateProductById,
   createNewReview,
+  getTopRatedProducts,
 };
