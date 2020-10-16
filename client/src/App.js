@@ -64,7 +64,13 @@ const App = () => {
               component={UserEditScreen}
             />
             <PrivateAdminRoute
+              exact
               path='/admin/productlist'
+              component={ProductListScreen}
+            />
+            <PrivateAdminRoute
+              exact
+              path='/admin/productlist/:pageNumber'
               component={ProductListScreen}
             />
             <PrivateAdminRoute
