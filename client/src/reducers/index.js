@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import productTopRated from './productTopRated';
 import productList from './productList';
 import productItem from './productItem';
 import productDelete from './productDelete';
@@ -20,6 +21,7 @@ import alert from './alert';
 import cart from './cart';
 export default combineReducers({
   productList,
+  productTopRated,
   productItem,
   cart,
   userLoginRegister,
