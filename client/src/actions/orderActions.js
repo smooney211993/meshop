@@ -2,6 +2,7 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_SUCCESS,
   ORDER_CREATE_REQUEST,
+  ORDER_CREATE_RESET,
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
@@ -86,6 +87,7 @@ export const payOrder = (orderId, paymentResults) => async (dispatch) => {
       config
     );
     dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+    dispatch({ type: ORDER_CREATE_RESET });
   } catch (error) {
     dispatch({
       type: ORDER_PAY_FAIL,
