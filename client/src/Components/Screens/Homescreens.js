@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
+import Meta from '../Layouts/Meta';
 import Product from '../Product/Product';
 import Spinner from '../Layouts/Spinner';
 import Message from '../Layouts/Message';
@@ -22,6 +22,7 @@ const Homescreens = ({ match }) => {
   }, [dispatch, keyword, pageNumber]);
   return (
     <>
+      <Meta />
       {!keyword && <ProductCarousel />}
       <h1>Latest Products</h1>
       {loading ? (
