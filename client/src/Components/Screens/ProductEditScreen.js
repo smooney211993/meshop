@@ -62,6 +62,7 @@ const ProductEditScreen = ({ match }) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('image', file);
+    setImage(file);
     setUploading(true);
     try {
       const config = {
@@ -107,6 +108,7 @@ const ProductEditScreen = ({ match }) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}></Form.Control>
             </Form.Group>
+
             <Form.Group controlId='price'>
               <Form.Label>Price </Form.Label>
               <Form.Control
@@ -115,10 +117,11 @@ const ProductEditScreen = ({ match }) => {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}></Form.Control>
             </Form.Group>
+
             <Form.Group controlId='image'>
               <Form.Label>Image</Form.Label>
               <Form.Control
-                type='image'
+                type='text'
                 placeholder='Enter Image'
                 value={image}
                 onChange={(e) => setImage(e.target.value)}></Form.Control>
@@ -129,6 +132,7 @@ const ProductEditScreen = ({ match }) => {
                 onChange={uploadFileHandler}></Form.File>
               {uploading && <Spinner />}
             </Form.Group>
+
             <Form.Group controlId='brand'>
               <Form.Label>Brand</Form.Label>
               <Form.Control
