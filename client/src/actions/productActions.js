@@ -167,3 +167,19 @@ export const createProductReview = (formData, productId) => async (
     });
   }
 };
+
+export const getTopRatedProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_TOP_REQUEST });
+    const { data } = await axios.get(`/api/products/top`);
+    dispatch({ type: PRODUCT_TOP_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_TOP_FAIL,
+      payload: {
+        msg: error.response.statusText,
+        err: error.response.status,
+      },
+    });
+  }
+};
