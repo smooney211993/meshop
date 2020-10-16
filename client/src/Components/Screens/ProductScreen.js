@@ -12,6 +12,7 @@ import {
 import Rating from '../Layouts/Rating';
 import Spinner from '../Layouts/Spinner';
 import Message from '../Layouts/Message';
+import Meta from '../Layouts/Meta';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -70,6 +71,7 @@ const ProductScreen = ({ match, history }) => {
         <Message>{error.msg}</Message>
       ) : (
         <>
+          <Meta title={product.name} description={product.description} />
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />
@@ -163,6 +165,7 @@ const ProductScreen = ({ match, history }) => {
                 ))}
                 <ListGroup.Item>
                   <h2>Write A Review</h2>
+                  {loadingCreateReview && <Spinner />}
                   {errorCreateReview && (
                     <Message variant='danger'>{errorCreateReview.msg}</Message>
                   )}

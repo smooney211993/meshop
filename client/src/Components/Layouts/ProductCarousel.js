@@ -22,6 +22,8 @@ const ProductCarousel = () => {
         {x.msg}
       </Message>
     ))
+  ) : error ? (
+    <Message variant='danger'>{error.msg}</Message>
   ) : (
     <Carousel pause='hover' className='bg-dark'>
       {products.map((product) => (

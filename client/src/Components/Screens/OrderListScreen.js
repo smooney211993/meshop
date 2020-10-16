@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../Layouts/Message';
 import Spinner from '../Layouts/Spinner';
 import { getOrdersAsAdmin } from '../../actions/orderActions';
-import { setAlert } from '../../actions/alertActions';
 
 const OrderListScreen = ({ history }) => {
   const dispatch = useDispatch();

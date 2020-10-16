@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import Meta from '../Layouts/Meta';
 import Product from '../Product/Product';
@@ -23,7 +24,13 @@ const Homescreens = ({ match }) => {
   return (
     <>
       <Meta />
-      {!keyword && <ProductCarousel />}
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-primary'>
+          Back
+        </Link>
+      )}
       <h1>Latest Products</h1>
       {loading ? (
         <Spinner />
