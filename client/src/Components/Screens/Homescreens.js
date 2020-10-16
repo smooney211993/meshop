@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-
+import { Helmet } from 'react-helmet';
 import Product from '../Product/Product';
 import Spinner from '../Layouts/Spinner';
 import Message from '../Layouts/Message';
