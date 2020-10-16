@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "MERN SHOPPING CART",
   "main": "server.js",
+  "engines": {
+    "node": "14.8.0"
+  },
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
@@ -24,7 +27,6 @@
   "homepage": "https://github.com/smooney211993/meshop#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
