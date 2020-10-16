@@ -5,6 +5,7 @@ import Product from '../Product/Product';
 import Spinner from '../Layouts/Spinner';
 import Message from '../Layouts/Message';
 import Paginate from '../Layouts/Paginate';
+import ProductCarousel from '../Layouts/ProductCarousel';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +22,7 @@ const Homescreens = ({ match }) => {
   }, [dispatch, keyword, pageNumber]);
   return (
     <>
+      {!keyword && <ProductCarousel />}
       <h1>Latest Products</h1>
       {loading ? (
         <Spinner />
