@@ -7,7 +7,7 @@ import Homescreens from './Components/Screens/Homescreens';
 import ProductScreen from './Components/Screens/ProductScreen';
 import CartScreen from './Components/Screens/CartScreen';
 import LoginScreen from './Components/Screens/LoginScreen';
-import registerScreen from './Components/Screens/RegisterScreen';
+import RegisterScreen from './Components/Screens/RegisterScreen';
 import ShippingScreen from './Components/Screens/ShippingScreen';
 import ProfileScreen from './Components/Screens/ProfileScreen';
 import PaymentScreen from './Components/Screens/PaymentScreen';
