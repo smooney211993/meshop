@@ -11,9 +11,9 @@ Admin order page allowing the ability to edit orders.
 Checkout with saving shipping address and paypal integration(sandbox account)
 
 // Improvements to be made?//
-Due to the project being a personal project, my git commits are lacking in professionalism and structure with some commits lacking details of any new features added, bugs encountered or what was changed in solutions. I recognise that is extremely bad practise as makes it difficult for team members to see what and when exactly went wrong when debugging.
+Due to the project being a personal project, my git commits are lacking in professionalism and structure with some commits lacking details of any new features added, bugs encountered or what was changed in solutions. I recognise that this is a extremely bad practise and makes it difficult for team members to see what  exactly went wrong when debugging.
 
-Integrate a confirmation email when order has been paid - maybe use sendgrid api?
+Integrate a confirmation email feature when order has been paid - maybe use sendgrid api?
 
 
 
