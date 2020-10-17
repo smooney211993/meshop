@@ -1,5 +1,5 @@
 # meshop
-A e-commerce that is built on a MERN STACK.
+A e-commerce that is built on a MERN STACK.  https://meshop2000.herokuapp.com/
 
 A fully responsive online retail web application with the UI built with React-Bootstrap.
 Fully featured shopping cart with products saved to local storage.
