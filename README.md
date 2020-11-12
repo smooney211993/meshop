@@ -1,4 +1,10 @@
 # meshop
+Please sign in using these credentials.
+
+email : admin@example.com
+password : hello
+
+
 A e-commerce that is built on a MERN STACK.  https://meshop2000.herokuapp.com/
 
 A fully responsive online retail web application with the UI built with React-Bootstrap.
@@ -13,7 +19,10 @@ Checkout with saving shipping address and paypal integration(sandbox account)
 // Improvements to be made?//
 Due to the project being a personal project, my git commits are lacking in professionalism and structure with some commits lacking details of any new features added, bugs encountered or what was changed in solutions. I recognise that this is a extremely bad practise and makes it difficult for team members to see what  exactly went wrong when debugging.
 
+
 Integrate a confirmation email feature when order has been paid - maybe use sendgrid api?
+forgot password functionality? sending an email with a reset token?
+storing jwt in cookies and not local storage?
 
 
 
